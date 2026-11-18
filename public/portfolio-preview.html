@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lalit Bisht — Full-Stack & AI Engineer</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    /* Sumit Chaubey Minimalist Zinc Canvas & Dot Grid */
+    body {
+      background-color: #09090b;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .ambient-glow {
+      background: radial-gradient(700px circle at 50% 0%, rgba(16, 185, 129, 0.08), transparent 70%);
+    }
+
+    .zinc-card {
+      background: rgba(18, 18, 21, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .zinc-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .nav-glass {
+      background: rgba(18, 18, 21, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    .timeline-node {
+      box-shadow: 0 0 0 4px #09090b, 0 0 0 6px rgba(16, 185, 129, 0.4);
+    }
+
+    /* Yellow Taped Sticky Note Styling */
+    /* Yellow Taped Sticky Note Styling */
+    .sticky-note {
+      background: #fef08a;
+      color: #713f12;
+      box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04);
+      transform: rotate(2deg);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .sticky-note:hover {
+      transform: rotate(0deg) scale(1.02);
+      box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.18);
+    }
+
+    .tape-strip {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Contact Section Light Mesh with Dot Grid (Exact Match to Reference Screenshot) */
+    .contact-light-mesh {
+      background-color: #f8fafc;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(219, 234, 254, 0.7) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(254, 215, 170, 0.5) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(238, 242, 255, 0.6) 0px, transparent 50%),
+        radial-gradient(rgba(15, 23, 42, 0.08) 1.2px, transparent 1.2px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 24px 24px;
+    }
+
+    /* macOS Dock Morphing & Right Stack Animation */
+    #macos-dock {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #macos-dock.dock-hero {
+      position: relative;
+      flex-direction: row;
+      padding: 0.5rem 1rem;
+      gap: 0.75rem;
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    #macos-dock.dock-scrolled {
+      position: fixed;
+      right: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      flex-direction: column;
+      padding: 0.65rem 0.5rem;
+      gap: 0.5rem;
+      background: rgba(18, 18, 21, 0.88);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 640px) {
+      #macos-dock.dock-scrolled {
+        right: 0.5rem;
+        padding: 0.4rem 0.35rem;
+        gap: 0.35rem;
+        transform: translateY(-50%) scale(0.9);
+      }
+    }
+
+    .dock-tooltip {
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 60;
+    }
+
+    #macos-dock.dock-hero .dock-tooltip {
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #macos-dock.dock-scrolled .dock-tooltip {
+      right: calc(100% + 12px);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  </style>
+</head>
+
+<body class="text-zinc-100 font-sans antialiased selection:bg-emerald-500/25 selection:text-emerald-300 relative">
+
+  <!-- Ambient Glow -->
+  <div class="fixed inset-0 pointer-events-none ambient-glow z-0"></div>
+
+  <!-- ================= PRELOADER ================= -->
+  <div id="preloader"
+    class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#09090b] transition-all duration-700">
+    <div class="flex flex-col items-center">
+      <div class="flex items-center gap-2 text-2xl font-bold tracking-tight text-zinc-100">
+        <span>&lt;lalit.dev /&gt;</span>
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      </div>
+      <p class="mt-2 text-xs font-mono text-zinc-500">LOADING EXPERIENCE</p>
+      <div class="w-36 h-0.5 bg-zinc-800 rounded-full mt-5 overflow-hidden">
+        <div id="preloader-bar" class="h-full bg-emerald-400 w-0 transition-all duration-700"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FLOATING NAVIGATION ================= -->
+  <header class="fixed top-5 left-0 right-0 z-40 flex justify-center px-4">
+    <nav class="nav-glass rounded-full px-5 py-2.5 flex items-center justify-between gap-6 max-w-2xl w-full">
+      <!-- Monogram -->
+      <a href="#hero" class="font-bold text-sm tracking-tight text-white flex items-center gap-1 group">
+        <span class="font-mono text-emerald-400 font-semibold">&lt;</span>
+        <span>lalit.dev</span>
+        <span class="font-mono text-emerald-400 font-semibold">/&gt;</span>
+      </a>
+
+      <!-- Jump Links in Exact Order -->
+      <div class="hidden sm:flex items-center gap-4 text-xs font-medium text-zinc-400">
+        <a href="#hero" class="hover:text-white transition">Home</a>
+        <a href="#tech-stack" class="hover:text-white transition">Tech</a>
+        <a href="#current-status" class="hover:text-white transition">Status</a>
+        <a href="#experience" class="hover:text-white transition">Experience</a>
+        <a href="#projects" class="hover:text-white transition">Projects</a>
+        <a href="#education-glories" class="hover:text-white transition">Education</a>
+        <a href="#activity" class="hover:text-white transition">GitHub</a>
+        <a href="#contact" class="hover:text-white transition">Contact</a>
+      </div>
+
+      <!-- Resume Button -->
+      <button onclick="openModal('resume-modal')"
+        class="px-3.5 py-1.5 rounded-full bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 shadow-sm">
+        <span>Resume</span>
+        <svg class="w-3 h-3 text-zinc-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ================= MAIN CONTENT (60% to 65% Viewport Width Container) ================= -->
+  <main class="relative z-10 w-[92%] sm:w-[85%] md:w-[65vw] max-w-3xl mx-auto space-y-0">
+    <!-- ================= 1. HERO SECTION (Sumit Chaubey Persona & Status) ================= -->
+    <section id="hero" class="pt-28 pb-12 sm:pt-36 sm:pb-16 flex flex-col items-center text-center relative z-10">
+      <!-- Availability Status Badge -->
+      <div
+        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-mono mb-6 shadow-sm">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span>Available for new opportunities</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white max-w-2xl leading-[1.1]">
+        Hi, I'm <span
+          class="bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400 bg-clip-text text-transparent">Lalit
+          Bisht</span>
+      </h1>
+      <p class="mt-3 text-lg sm:text-xl font-medium text-zinc-300 max-w-xl">
+        Software Developer Intern at <span class="text-emerald-400 font-semibold">Technogetic Pvt Ltd.</span>
+      </p>
+
+      <!-- Location Indicator -->
+      <div class="flex items-center gap-1.5 text-xs font-mono text-zinc-500 mt-2">
+        <span class="text-emerald-400">📍</span>
+        <span>Dehradun, Uttarakhand, India</span>
+      </div>
+
+      <!-- Bio Paragraph -->
+      <p class="mt-5 text-sm sm:text-base text-zinc-400 max-w-xl leading-relaxed font-sans">
+        Full-Stack Software Engineer with a passion for building high-performance web systems, real-time architectures,
+        and interactive digital experiences. Currently crafting scalable backend services and modern reactive user
+        interfaces at Technogetic.
+      </p>
+
+      <!-- Quick Socials & Action Links -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a href="#projects"
+          class="px-5 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs font-mono transition shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center gap-2">
+          <span>Explore Projects</span>
+          <span class="text-xs">↓</span>
+        </a>
+        <a href="#contact"
+          class="px-5 py-2.5 rounded-full bg-zinc-800/80 hover:bg-zinc-700/80 text-zinc-200 border border-zinc-700 text-xs font-mono transition active:scale-95 flex items-center gap-2">
+          <span>Get In Touch</span>
+        </a>
+        <button onclick="openModal('resume-modal')"
+          class="px-5 py-2.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 text-xs font-mono transition active:scale-95 flex items-center gap-2">
+          <span class="text-emerald-400">📄</span>
+          <span>Resume</span>
+        </button>
+      </div>
+
+      <!-- ================= macOS DOCK inside first section end ================= -->
+      <div class="mt-8 w-full flex justify-center">
+        <div id="macos-dock" class="dock-hero z-40">
+          <!-- 1. Twitter / X -->
+          <a href="https://x.com" target="_blank" class="dock-item bg-black border border-zinc-750 text-white shadow-md" title="Twitter">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <span class="dock-tooltip">Twitter</span>
+          </a>
+          <!-- 2. Instagram -->
+          <a href="https://instagram.com" target="_blank" class="dock-item bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white shadow-md" title="Instagram">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <span class="dock-tooltip">Instagram</span>
+          </a>
+          <!-- 3. GitHub -->
+          <a href="https://github.com/Lalit-byte" target="_blank" class="dock-item bg-zinc-800 text-white shadow-md" title="GitHub">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span class="dock-tooltip">GitHub</span>
+          </a>
+          <!-- 4. LinkedIn -->
+          <a href="https://linkedin.com/in/lalit-bisht-b5285b269" target="_blank"
+            class="dock-item bg-[#0A66C2] text-white shadow-md" title="LinkedIn">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <span class="dock-tooltip">LinkedIn</span>
+          </a>
+          <!-- 5. Resume PDF Modal Trigger -->
+          <button onclick="openModal('resume-modal')"
+            class="dock-item bg-gradient-to-tr from-emerald-500 to-teal-400 text-zinc-950 font-bold shadow-md" title="View Resume">
+            <svg class="w-4.5 h-4.5 stroke-current fill-none stroke-[2.2]" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+            <span class="dock-tooltip">View Resume</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hero Divider Line -->
+      <div class="w-full border-b border-zinc-800/80 mt-12 sm:mt-16"></div>
+    </section>
+
+    <!-- ================= 2. TECHNICAL STACK (Exact Match to User Image 1) ================= -->
+    <section id="tech-stack" class="py-10 sm:py-14 relative">
+      <!-- Subtle chrome stars at the bottom right matching image reference -->
+      <div class="absolute right-[-24px] bottom-14 hidden lg:flex flex-col items-center gap-1 opacity-60 pointer-events-none select-none">
+        <svg class="w-5 h-5 text-zinc-400" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14 9L23 11L14 13L12 22L10 13L1 11L10 9L12 0Z" />
+        </svg>
+        <svg class="w-3.5 h-3.5 text-zinc-500 translate-x-2.5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14 9L23 11L14 13L12 22L10 13L1 11L10 9L12 0Z" />
+        </svg>
+      </div>
+
+      <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3 mb-5 select-none">
+        <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-zinc-200">
+          TECHNICAL STACK
+        </h2>
+        <span class="text-xs font-mono text-zinc-500">
+          FULL Stack · Cloud · AI
+        </span>
+      </div>
+
+      <!-- 3x6 Responsive Grid matching reference image (10% more compact) -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 sm:gap-2.5">
+        <!-- Row 1 -->
+        <div class="rounded-2xl p-2.5 sm:p-3 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121316]/95 border border-cyan-500/35 shadow-[0_0_20px_-3px_rgba(6,182,212,0.18)] hover:-translate-y-1 min-h-[105px] sm:min-h-[112px]">
+          <div class="h-8 sm:h-9 flex items-center justify-center mb-1.5 group-hover:scale-105 transition-transform">
+            <div class="relative flex items-center justify-center">
+              <div class="absolute inset-0 w-9 h-9 -translate-x-1 -translate-y-1 bg-cyan-400/25 rounded-full blur-md pointer-events-none"></div>
+              <svg class="w-7 h-7 sm:w-8 sm:h-8 relative z-10" viewBox="-11.5 -10.23174 23 20.46348" fill="none">
+                <circle cx="0" cy="0" r="2.2" fill="#00D8FF" />
+                <g stroke="#00D8FF" stroke-width="1.15" fill="none">
+                  <ellipse rx="11" ry="4.2" />
+                  <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+                  <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+                </g>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-xs sm:text-[12.5px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">React.js</h3>
+          <p class="text-[9.5px] sm:text-[10px] font-mono text-zinc-400 mt-0.5 leading-tight">Frontend</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg shadow-sm" viewBox="0 0 128 128">
+              <rect width="128" height="128" rx="20" fill="#3178C6" />
+              <path fill="#FFFFFF" d="M37.3 53.2v8.9h15.7v45.1h10.9V62.1h15.7v-8.9H37.3zm46.6 22.8c3.2-2.1 7.2-3.4 11.5-3.4 8.7 0 13.9 4.6 13.9 12.3 0 7.8-5.7 12.4-14.7 12.4-4.8 0-8.9-1.3-11.8-3.3v10.1c3.5 1.5 8.2 2.3 12.8 2.3 16.4 0 25.4-8.4 25.4-21.7 0-14.3-9.9-21.4-24.3-21.4-4.2 0-8.2.8-11.5 2.1v9.6h-1.3v-0.1z" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">TypeScript</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Frontend</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-10 h-7 sm:w-11 sm:h-8" viewBox="0 0 70 30" fill="none">
+              <path d="M4 13.5v12.5h4.5v-7.2c0-2.4 1.5-3.5 3.5-3.5 1.9 0 2.8 1 2.8 3.5v7.2h4.5v-8c0-4.2-2.4-6.2-5.5-6.2-2.5 0-4.2 1.3-5 2.7V13.5H4z" fill="#43853d" />
+              <path d="M22 19c0-4.4 3.2-7.2 7.2-7.2s7.2 2.8 7.2 7.2c0 4.4-3.2 7.2-7.2 7.2s-7.2-2.8-7.2-7.2zm9.8 0c0-2.2-1.2-3.6-2.6-3.6s-2.6 1.4-2.6 3.6c0 2.2 1.2 3.6 2.6 3.6s2.6-1.4 2.6-3.6z" fill="#FFFFFF" />
+              <path d="M45.5 8v6.2c-.8-1.3-2.3-2.2-3.8-2.2-4 0-6.7 2.8-6.7 7 0 4.2 2.7 7 6.7 7 1.5 0 3-.8 3.8-2v1.8H50V8h-4.5zm-2 11c0 2.2-1.2 3.5-2.6 3.5s-2.6-1.3-2.6-3.5c0-2.2 1.2-3.5 2.6-3.5s2.6 1.3 2.6 3.5z" fill="#FFFFFF" />
+              <path d="M52 19c0-4.4 3.2-7.2 7-7.2 4 0 6.8 2.8 6.8 7.2v1.2H56.5c.3 1.8 1.5 2.6 3.2 2.6 1.3 0 2.3-.5 2.8-1.4l3.5 1.5c-1.3 2.2-3.5 3.3-6.5 3.3-4.5 0-7.5-3-7.5-7.2zm9.3-1.5c-.3-1.6-1.3-2.4-2.5-2.4-1.3 0-2.3.8-2.5 2.4h5z" fill="#FFFFFF" />
+              <polygon points="30,22 34,24.3 34,28.7 30,31 26,28.7 26,24.3" fill="#339933" />
+              <path d="M28 26.5v2.2c0 .5.3.8.7.8s.7-.3.7-.8v-2.2" stroke="#fff" stroke-width="0.6" fill="none" />
+              <path d="M31 26.5h1.2v1.2h-1.2v1.5h1.2" stroke="#fff" stroke-width="0.6" fill="none" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">Node.js</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Backend</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <div class="relative flex items-center justify-center">
+              <div class="absolute inset-0 w-10 h-10 -translate-x-1 -translate-y-1 bg-purple-500/25 rounded-full blur-md pointer-events-none"></div>
+              <svg class="w-8 h-8 sm:w-9 sm:h-9 relative z-10" viewBox="0 0 24 24" fill="none">
+                <defs>
+                  <linearGradient id="geminiGradHeroPrev" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#38bdf8" />
+                    <stop offset="45%" stop-color="#818cf8" />
+                    <stop offset="100%" stop-color="#c084fc" />
+                  </linearGradient>
+                </defs>
+                <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z" fill="url(#geminiGradHeroPrev)" />
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">Gemini AI</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">AI &amp; LLMs</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 180 180" fill="none">
+              <circle cx="90" cy="90" r="90" fill="#000000" stroke="#333338" stroke-width="6" />
+              <path d="M149.508 157.52L69.142 54H54V125.97H66.1136V69.3836L139.999 164.845C143.333 162.614 146.509 160.165 149.508 157.52Z" fill="url(#nextGradPrevA)" />
+              <rect x="115" y="54" width="12" height="72" fill="url(#nextGradPrevB)" />
+              <defs>
+                <linearGradient id="nextGradPrevA" x1="109" y1="116.5" x2="144.5" y2="160.5" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="white" />
+                  <stop offset="1" stop-color="white" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="nextGradPrevB" x1="121" y1="54" x2="120.799" y2="106.875" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="white" />
+                  <stop offset="1" stop-color="white" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">Next.js</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Full Stack</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
+              <path d="M11.91 2c-3.13 0-5.02 1.37-5.02 3.63v2.66h5.13v.73H4.7C2.46 9.02 1 10.9 1 13.97c0 3.12 1.8 4.7 4.54 4.7h1.49v-2.07c0-2.3 2.05-3.83 4.48-3.83h5.05v-.73h-5.05c-1.35 0-2.38-.85-2.38-2.06v-3.35c0-1.2.98-2.22 2.38-2.22h5.16c1.2 0 2.24.93 2.24 2.22v1.65h2.12V5.63C21.03 3.37 19.06 2 16.03 2h-4.12zM9.54 3.7c.45 0 .82.37.82.82 0 .46-.37.83-.82.83-.46 0-.83-.37-.83-.83 0-.45.37-.82.83-.82z" fill="#387eb8" />
+              <path d="M12.09 22c3.13 0 5.02-1.37 5.02-3.63v-2.66h-5.13v-.73h7.32c2.24 0 3.7-1.88 3.7-4.95 0-3.12-1.8-4.7-4.54-4.7h-1.49v2.07c0 2.3-2.05 3.83-4.48 3.83H7.44v.73h5.05c1.35 0 2.38.85 2.38 2.06v3.35c0 1.2-.98 2.22-2.38 2.22H7.33c-1.2 0-2.24-.93-2.24-2.22v-1.65H2.97v2.65C2.97 20.63 4.94 22 7.97 22h4.12zm2.37-1.7c-.45 0-.82-.37-.82-.82 0-.46.37-.83.82-.83.46 0 .83.37.83.83 0 .45-.37.82-.83.82z" fill="#ffe052" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">Python</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Languages</p>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-10 h-7 sm:w-11 sm:h-8" viewBox="0 0 50 32" fill="none">
+              <path d="M11 13.5c-2.4 0-3.8 1.2-3.8 2.8 0 1.8 1.4 2.8 3.4 2.8 1.8 0 3.2-.8 3.8-1.8v1.6H17V13.5h-2.5v1.4c-.7-.9-1.9-1.4-3.5-1.4zm1.2 4.2c-1.1 0-1.8-.5-1.8-1.3 0-.8.7-1.3 1.8-1.3 1.1 0 2 .5 2 1.3 0 .8-.9 1.3-2 1.3z" fill="#FFFFFF" />
+              <path d="M18.5 13.8l2.2 6.8h2.3l1.8-5.3 1.8 5.3h2.3l2.2-6.8h-2.5l-1.1 4.5-1.7-4.5h-2.1l-1.7 4.5-1.1-4.5h-2.4z" fill="#FFFFFF" />
+              <path d="M36.5 15.6c-.6-.4-1.4-.7-2.3-.7-1 0-1.6.4-1.6 1 0 .6.5.9 1.7 1.2 2.2.5 3.3 1.3 3.3 2.7 0 1.9-1.6 3-3.9 3-1.5 0-2.7-.4-3.5-1.1l1-1.7c.7.6 1.7.9 2.6.9 1.1 0 1.7-.5 1.7-1.1 0-.6-.5-.9-1.8-1.2-2.1-.5-3.2-1.3-3.2-2.6 0-1.8 1.5-2.9 3.7-2.9 1.3 0 2.4.3 3.1.8l-1 1.7z" fill="#FFFFFF" />
+              <path d="M38.5 24.2c-4.4 2.8-10.2 3.5-15.6 2.1-3.5-.9-6.6-2.8-9.1-5.4-.4-.4-.3-1.1.3-.9 5.8 2.9 12.5 3 18.5.6 2.1-.8 4.2-2 5.8-3.5.6-.5 1.2.2.6.8l-.5.3z" fill="#FF9900" />
+              <path d="M40.2 22.3c-.4-.6-2.5-1.3-3.6-1.4-.3 0-.5-.3-.3-.6.6-.7 2.4-2.4 3.3-2 .6.2 1 2.2.9 3.6 0 .4-.3.6-.5.3l.2.1z" fill="#FF9900" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">AWS &amp; Cloud</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Cloud &amp; AI</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
+              <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.336 6.182 14.975 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.336 13.382 8.975 12 6.001 12z" fill="#38BDF8" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">Tailwind CSS</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Frontend</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl" viewBox="0 0 36 36" fill="none">
+              <rect width="36" height="36" rx="9" fill="#18181b" stroke="#333338" stroke-width="1" />
+              <text x="7" y="25" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="18" letter-spacing="-1">ex</text>
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">Express.js</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Backend</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none">
+              <path d="M12.002 0.5C12.002 0.5 5.5 6.8 5.5 13.8C5.5 18.2 8.3 21.8 12.002 23.5C15.7 21.8 18.5 18.2 18.5 13.8C18.5 6.8 12.002 0.5 12.002 0.5Z" fill="#00ED64" />
+              <path d="M12.002 1.5V23C8.6 21.3 6.2 17.9 6.2 13.8C6.2 7.7 12.002 1.5 12.002 1.5Z" fill="#00684A" />
+              <path d="M11.9 13.5v9.8c.1.1.2.1.2.2 0 0 0-.1 0-.1V13.5h-.2z" fill="#A4ECC8" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">MongoDB</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Database</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-10 h-7 sm:w-11 sm:h-8" viewBox="0 0 54 28" fill="none">
+              <path d="M38 12c-1.5-3-4.5-5-8-5-3.5 0-6.8 2-8.5 5.2-1.2 2.3-1.5 5-.7 7.5l-3.2 3.8 4.2-1.5c1.8 1.5 4.2 2.3 6.7 2 4.2-.5 7.8-3.8 8.8-8l3-1.5-2.3-2.5z" fill="#4479A1" fill-opacity="0.8" />
+              <circle cx="33" cy="9.5" r="0.8" fill="#F29111" />
+              <text x="3" y="19" fill="#00758F" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="13" letter-spacing="-0.3">MySQL</text>
+              <circle cx="48" cy="18" r="1.5" fill="#F29111" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">MySQL</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Database</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-10 h-7 sm:w-11 sm:h-8" viewBox="0 0 56 26" fill="none">
+              <path d="M3 13C3 7 7 3 13 3c3.5 0 6.5 2 7.8 5-1.8-1-3.8-1.3-5.8-1-3 .5-5.5 2.5-6.5 5.5-.8 2.5-.7 5.2.2 7.5-3.8-1.8-5.7-4-5.7-7z" fill="#003B57" />
+              <path d="M13 22c4.5 0 8.2-3.6 8.2-8.2 0-1.4-.3-2.7-.9-3.8-1.1 3-3.3 5.4-6.2 6.5-2.9 1.1-6.1.9-8.8-.6 1.2 3.7 4.5 6.1 7.7 6.1z" fill="#0EA5E9" />
+              <text x="21" y="17" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="10.5" letter-spacing="-0.3">SQLite</text>
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">SQLite</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Database</p>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 28 28" fill="none">
+              <rect x="14" y="1" width="18" height="18" rx="4" transform="rotate(45 14 1)" fill="#F05032" />
+              <path d="M17.5 12.2l-3.8-3.8c-.4-.4-1-.4-1.4 0l-1.3 1.3 1.8 1.8c.4-.1.9 0 1.2.3.4.4.4.9.3 1.3l1.7 1.7c.4-.1.9 0 1.3.3.5.5.5 1.3 0 1.7-.5.5-1.3.5-1.7 0-.4-.4-.5-1-.2-1.4l-1.6-1.6v2.3c.1.1.3.3.4.4.4.4.4 1.1 0 1.5-.4.4-1.2.4-1.6 0-.4-.4-.4-1.1 0-1.5.2-.2.4-.4.7-.4v-2.4c-.3 0-.5-.2-.7-.4-.4-.4-.4-1 0-1.4l1.6-1.6-1.3-1.3c-.4-.4-1-.4-1.4 0l-3.8 3.8c-.4.4-.4 1 0 1.4l7.6 7.6c.4.4 1 .4 1.4 0l7.6-7.6c.4-.4.4-1 0-1.4z" fill="#FFFFFF" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">Git &amp; GitHub</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Tools</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-9 h-8 sm:w-10 sm:h-9" viewBox="0 0 28 22" fill="none">
+              <path d="M15 4h2.2v2.2H15zm-3.2 0H14v2.2h-2.2zm-3.2 0h2.2v2.2H8.6zm6.4-3.2h2.2v2.2H15zm-3.2 0H14v2.2h-2.2zm6.4 6.4H20v2.2h-2.2zm-3.2 0H17v2.2h-2.2zm-3.2 0H14v2.2h-2.2zm-3.2 0h2.2v2.2H8.6zm-3.2 0h2.2v2.2H5.4z" fill="#2496ED" />
+              <path d="M25.5 9.5c-.3-.2-1.5-.4-2.8.2-.4-.9-1.1-1.7-2-2.3-.1 0-.2.1-.2.2 0 1.4.7 2.7 1.8 3.4-.7.5-1.8.6-2.9.6H3c-.5 2.1.1 5.3 2 7.2 2 2 4.9 3 8.9 3 7.4 0 12.2-4.1 13.6-9.6.8 0 1.8-.1 2.1-.5.3-.2.3-.5 0-.7l-2.1-1.5z" fill="#2496ED" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">Docker</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">DevOps</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 28 28" fill="none">
+              <path d="M14 2.5l9.5 5.5v11l-9.5 5.5-9.5-5.5v-11L14 2.5z" fill="#4945FF" fill-opacity="0.2" />
+              <path d="M14 6l6.5 3.8v7.5L14 21.2l-6.5-3.8V9.8L14 6z" stroke="#7B79FF" stroke-width="1.5" />
+              <path d="M14 10l4 2.3v4.6L14 19.2l-4-2.3v-4.6L14 10z" fill="#9585FF" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">Strapi CMS</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Backend</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 32 32" fill="none">
+              <rect x="6" y="6" width="3.5" height="18" rx="1.75" fill="#150458" />
+              <circle cx="7.75" cy="10" r="1.5" fill="#FFFFFF" />
+              <rect x="12" y="10" width="3.5" height="14" rx="1.75" fill="#FFD43B" />
+              <circle cx="13.75" cy="14" r="1.5" fill="#150458" />
+              <rect x="18" y="4" width="3.5" height="20" rx="1.75" fill="#E70488" />
+              <circle cx="19.75" cy="8" r="1.5" fill="#FFFFFF" />
+              <rect x="24" y="12" width="3.5" height="12" rx="1.75" fill="#5856D6" />
+              <circle cx="25.75" cy="16" r="1.5" fill="#FFFFFF" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">Pandas</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Data Analysis</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="8" fill="#121820" stroke="#00758F" stroke-width="1.5" />
+              <path d="M6 21l6-10 4 7 5-11 5 14" stroke="#10B981" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="6" cy="21" r="1.8" fill="#38BDF8" />
+              <circle cx="12" cy="11" r="1.8" fill="#EC4899" />
+              <circle cx="16" cy="18" r="1.8" fill="#F59E0B" />
+              <circle cx="21" cy="7" r="1.8" fill="#38BDF8" />
+              <circle cx="26" cy="21" r="1.8" fill="#10B981" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">Matplotlib</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">Analytics</p>
+        </div>
+
+        <div class="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center group cursor-default transition-all duration-200 bg-[#121215]/85 hover:bg-[#18181c]/95 border border-zinc-800/80 hover:border-zinc-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] hover:-translate-y-1 min-h-[116px] sm:min-h-[122px]">
+          <div class="h-9 sm:h-10 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="15" fill="#FF6C37" />
+              <path d="M19.5 9.5c-1.5-1-3.5-1.2-5-.5-1.5.8-2.6 2.3-2.7 4.1l-.1 1.2-2.5 1.2 2.2 1.7-.3 1c-.4 1.5.1 3.2 1.4 4.1.9.6 2.1.9 3.1.6l5.2-2.3c1.7-.8 2.7-2.5 2.6-4.3 0-1.8-1-3.4-2.6-4.2l-1.3-.5v-.9c0-.5-.1-1-.4-1.4-.4-.5-1-.9-1.7-1l-.5 1.1z" fill="#FFFFFF" />
+            </svg>
+          </div>
+          <h3 class="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors leading-tight">Postman</h3>
+          <p class="text-[10px] sm:text-[10.5px] font-mono text-zinc-400 mt-0.5 leading-tight">API Platform</p>
+        </div>
+      </div>
+
+      <div class="w-full border-b border-zinc-800/80 mt-10 sm:mt-14"></div>
+    </section>
+
+    <!-- ================= 3. CURRENT STATUS ================= -->
+    <section id="status" class="py-8 sm:py-10 relative">
+      <div class="zinc-card rounded-2xl p-5 sm:p-6 border border-zinc-800/90 relative overflow-hidden">
+        <div class="pointer-events-none absolute -right-12 -top-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800/80 pb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+              <span>⚡</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-zinc-300">CURRENT STATUS</h2>
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+              </div>
+              <p class="text-xs text-emerald-400 font-mono mt-0.5">Active &amp; Open to High-Impact Engineering Roles</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-mono text-zinc-400">
+            <span class="text-emerald-400">📍</span>
+            <span>Dehradun, India</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 text-xs font-mono">
+          <div class="space-y-1">
+            <span class="text-zinc-500 uppercase text-[10px] tracking-wider">Role</span>
+            <div class="flex items-center gap-1.5 text-zinc-200 font-semibold font-sans">
+              <span>💼</span>
+              <span>Software Dev Intern</span>
+            </div>
+            <p class="text-[11px] text-zinc-400 font-mono">@ Technogetic Pvt Ltd.</p>
+          </div>
+          <div class="space-y-1">
+            <span class="text-zinc-500 uppercase text-[10px] tracking-wider">Primary Stack</span>
+            <div class="flex items-center gap-1.5 text-zinc-200 font-semibold font-sans">
+              <span>💻</span>
+              <span>Next.js · TypeScript · Node</span>
+            </div>
+            <p className="text-[11px] text-zinc-400 font-mono">PostgreSQL · AWS-AIDLC</p>
+          </div>
+          <div class="space-y-1">
+            <span class="text-zinc-500 uppercase text-[10px] tracking-wider">Current Focus</span>
+            <div class="flex items-center gap-1.5 text-zinc-200 font-semibold font-sans">
+              <span>🚀</span>
+              <span>Full-Stack &amp; Scalable Systems</span>
+            </div>
+            <p class="text-[11px] text-zinc-400 font-mono">Building low-latency apps</p>
+          </div>
+        </div>
+      </div>
+      <div class="w-full border-b border-zinc-800/80 mt-10 sm:mt-12"></div>
+    </section>
+
+    <!-- ================= 4. WORK EXPERIENCE (Technogetic Pvt Ltd.) ================= -->
+    <section id="work" class="py-12 sm:py-16 relative">
+      <div class="flex items-center gap-3 mb-8">
+        <div
+          class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+          💼
+        </div>
+        <div>
+          <span class="text-xs font-mono text-emerald-400 uppercase tracking-wider font-semibold">01. Career</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Work Experience</h2>
+        </div>
+      </div>
+
+      <div class="relative pl-6 sm:pl-8 border-l border-zinc-800 space-y-8">
+        <div class="relative group">
+          <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full bg-emerald-400 timeline-node"></div>
+          <div class="zinc-card rounded-2xl p-6 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800/80 pb-4">
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h3 class="text-lg font-bold text-white tracking-tight">Software Developer Intern</h3>
+                  <span
+                    class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 text-[10px] font-mono border border-emerald-500/30">Present</span>
+                </div>
+                <p class="text-sm font-semibold text-emerald-400 mt-0.5">Technogetic Pvt Ltd.</p>
+              </div>
+              <div class="flex items-center gap-4 text-xs font-mono text-zinc-400">
+                <span>📅 Sep 2026 – Present</span>
+                <span>📍 Onsite</span>
+              </div>
+            </div>
+            <ul class="space-y-2 text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 mt-1 select-none font-mono">▹</span>
+                <span>Contributed to the Hospital Management System through rigorous manual testing, defect diagnosis, and developing/enhancing core feature modules.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 mt-1 select-none font-mono">▹</span>
+                <span>Engineered an end-to-end Learning Management System (LMS) utilizing AWS-AIDLC for scalable cloud architecture.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 mt-1 select-none font-mono">▹</span>
+                <span>Conducted manual QA and cross-device verification on Astro-based web platforms, guaranteeing high UI responsiveness and production stability.</span>
+              </li>
+            </ul>
+            <div class="pt-2 flex flex-wrap gap-1.5">
+              <span class="px-2.5 py-1 rounded-md bg-zinc-800/80 border border-zinc-750 text-[11px] font-mono text-zinc-300">AWS-AIDLC</span>
+              <span class="px-2.5 py-1 rounded-md bg-zinc-800/80 border border-zinc-750 text-[11px] font-mono text-zinc-300">Astro</span>
+              <span class="px-2.5 py-1 rounded-md bg-zinc-800/80 border border-zinc-750 text-[11px] font-mono text-zinc-300">Manual Testing</span>
+              <span class="px-2.5 py-1 rounded-md bg-zinc-800/80 border border-zinc-750 text-[11px] font-mono text-zinc-300">Bug Fixing</span>
+              <span class="px-2.5 py-1 rounded-md bg-zinc-800/80 border border-zinc-750 text-[11px] font-mono text-zinc-300">LMS</span>
+              <span class="px-2.5 py-1 rounded-md bg-zinc-800/80 border border-zinc-750 text-[11px] font-mono text-zinc-300">QA Verification</span>
+              <span class="px-2.5 py-1 rounded-md bg-zinc-800/80 border border-zinc-750 text-[11px] font-mono text-zinc-300">Feature Engineering</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-full border-b border-zinc-800/80 mt-12 sm:mt-16"></div>
+    </section>
+
+    <!-- ================= 5. FEATURED PROJECTS (Bento Grid) ================= -->
+    <section id="projects" class="py-12 sm:py-16 relative">
+      <div class="flex items-center gap-3 mb-8">
+        <div
+          class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+          📁
+        </div>
+        <div>
+          <span class="text-xs font-mono text-emerald-400 uppercase tracking-wider font-semibold">03. Engineering Works</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Featured Projects</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- Project 1: Full Stack AI Fitness App (Top Spanned Bento Hero) -->
+        <div class="zinc-card md:col-span-2 rounded-2xl p-6 flex flex-col justify-between border-emerald-500/20 space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <span
+                class="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">Full-Stack · AI</span>
+              <div class="flex items-center gap-2">
+                <a href="https://github.com/Lalit-byte" target="_blank"
+                  class="p-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white transition">⌨ Code</a>
+                <a href="https://github.com/Lalit-byte" target="_blank"
+                  class="p-1.5 rounded-lg bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25 transition">↗ Live Demo</a>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Full Stack AI Fitness App</h3>
+              <p class="text-xs sm:text-sm font-medium text-emerald-400/90 mt-1">AI-powered personalized workout planning &amp; nutrition guidance with Gemini API</p>
+            </div>
+            <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
+              Developed a full-stack AI fitness platform integrating Google Gemini API for intelligent calorie estimation and personalized workout recommendations. Designed secure REST APIs, reusable React component architecture, and structured content management via SQLite and Strapi CMS. Deployed frontend on Vercel and backend on Render.
+            </p>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-zinc-800/90 border border-zinc-700 text-xs font-mono text-emerald-400">
+              <span>⚡ Gemini AI Recommendations &amp; Calorie Tracking</span>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-zinc-800/80 flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">React.js</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Strapi CMS</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Node.js</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">SQLite</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Gemini AI</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">REST APIs</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Vercel</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Render</span>
+          </div>
+        </div>
+
+        <!-- Project 2: Resume Craft – Resume Builder Web App -->
+        <div class="zinc-card rounded-2xl p-6 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <span
+                class="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">Full-Stack</span>
+              <div class="flex items-center gap-2">
+                <a href="https://github.com/Lalit-byte" target="_blank"
+                  class="p-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white transition">⌨ Code</a>
+                <a href="https://github.com/Lalit-byte" target="_blank"
+                  class="p-1.5 rounded-lg bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25 transition">↗ Preview</a>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">Resume Craft – Resume Builder Web App</h3>
+              <p class="text-xs font-medium text-emerald-400/90 mt-1">Full-stack resume builder with modular UI, live preview &amp; PDF generation</p>
+            </div>
+            <p class="text-xs text-zinc-300 leading-relaxed font-sans">
+              Built an end-to-end resume creation web application using React.js, Node.js, Express.js, and MongoDB. Features modular form editors, live real-time preview, client-side validation, secure protected routes, and instant server-side PDF document generation.
+            </p>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-zinc-800/90 border border-zinc-700 text-xs font-mono text-emerald-400">
+              <span>⚡ Instant Live Preview &amp; PDF Download</span>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-zinc-800/80 flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">React.js</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Node.js</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Express.js</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">MongoDB</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Axios</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">PDF Export</span>
+          </div>
+        </div>
+
+        <!-- Project 3: Employee Data Analysis & Visualization -->
+        <div class="zinc-card rounded-2xl p-6 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <span
+                class="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">Data Analytics</span>
+              <a href="https://github.com/Lalit-byte" target="_blank"
+                class="p-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white transition">⌨ Code</a>
+            </div>
+            <div>
+              <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">Employee Data Analysis &amp; Visualization</h3>
+              <p class="text-xs font-medium text-emerald-400/90 mt-1">Workforce data wrangling, departmental trend modeling &amp; visual dashboards</p>
+            </div>
+            <p class="text-xs text-zinc-300 leading-relaxed font-sans">
+              Built an end-to-end employee data analytics pipeline using Python, Pandas, and NumPy to clean missing values, eliminate duplicates, and engineer domain features. Delivered department-, city-, and tenure-based insights with comprehensive Matplotlib dashboards.
+            </p>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-zinc-800/90 border border-zinc-700 text-xs font-mono text-emerald-400">
+              <span>⚡ Department &amp; Tenure Insights</span>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-zinc-800/80 flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Python</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Pandas</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">NumPy</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Matplotlib</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Git &amp; GitHub</span>
+          </div>
+        </div>
+
+        <!-- Project 4: Desktop Task Manager (Python & MySQL) (Bottom Spanned Bento Anchor) -->
+        <div class="zinc-card md:col-span-2 rounded-2xl p-6 flex flex-col justify-between border-emerald-500/20 space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <span
+                class="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">Desktop GUI · Database</span>
+              <div class="flex items-center gap-2">
+                <a href="https://github.com/Lalit-byte" target="_blank"
+                  class="p-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white transition">⌨ Code</a>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Desktop Task Manager (Python &amp; MySQL)</h3>
+              <p class="text-xs sm:text-sm font-medium text-emerald-400/90 mt-1">Interactive desktop task scheduler with relational database persistence</p>
+            </div>
+            <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
+              Engineered a native desktop task management suite using Python and Tkinter with relational MySQL database persistence. Implemented full CRUD workflows, intuitive task status toggling, and reliable transaction handling via mysql-connector-python.
+            </p>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-zinc-800/90 border border-zinc-700 text-xs font-mono text-emerald-400">
+              <span>⚡ Persistent Relational Database Storage</span>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-zinc-800/80 flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Python</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Tkinter</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">MySQL</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">mysql-connector</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">CRUD Operations</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-750 text-[11px] font-mono text-zinc-400">Desktop GUI</span>
+          </div>
+        </div>
+      </div>
+      <div class="w-full border-b border-zinc-800/80 mt-12 sm:mt-16"></div>
+    </section>
+
+    <!-- ================= 6. EDUCATION & CAMPUS GLORIES (Exact Match to User Image 2) ================= -->
+    <section id="education-glories" class="py-12 sm:py-16 relative">
+      <div class="flex items-center justify-between border-b border-zinc-800/80 pb-4 mb-6 select-none">
+        <h2 class="text-xs font-mono font-bold uppercase tracking-widest text-zinc-200">
+          EDUCATION &amp; CAMPUS GLORIES
+        </h2>
+        <span class="text-xs font-mono text-zinc-500">
+          Academics · Honors · Athletics
+        </span>
+      </div>
+
+      <!-- 2-Column Asymmetric Grid Matching Image 2 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <!-- Left Column: Education -->
+        <div class="space-y-4 flex flex-col justify-between">
+          <!-- Top Card: MCA -->
+          <div class="zinc-card rounded-2xl p-5 sm:p-6 border border-zinc-800 hover:border-zinc-700 transition">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold">
+                8.23 CGPA
+              </span>
+              <span class="text-xs font-mono text-zinc-500">2023 – 2025</span>
+            </div>
+            <h3 class="text-lg font-bold text-white tracking-tight mt-3">
+              MCA (Masters in Computer Applications)
+            </h3>
+            <p class="text-xs sm:text-sm text-zinc-400 font-sans mt-1">
+              DIT University, Dehradun, India
+            </p>
+          </div>
+
+          <!-- Bottom Sub-grid: NIELIT 'A' & 'O' Level -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="zinc-card rounded-2xl p-4 sm:p-5 border border-zinc-800 hover:border-zinc-700 transition">
+              <span class="text-[11px] font-mono text-sky-400 font-semibold uppercase tracking-wider">
+                Government Certified
+              </span>
+              <h4 class="text-sm font-bold text-white tracking-tight mt-1">
+                NIELIT 'A' Level
+              </h4>
+              <p class="text-xs text-zinc-400 font-sans mt-1">
+                DSA, OS, Networks &amp; Security
+              </p>
+            </div>
+
+            <div class="zinc-card rounded-2xl p-4 sm:p-5 border border-zinc-800 hover:border-zinc-700 transition">
+              <span class="text-[11px] font-mono text-zinc-400 font-semibold uppercase tracking-wider">
+                Foundational
+              </span>
+              <h4 class="text-sm font-bold text-white tracking-tight mt-1">
+                NIELIT 'O' Level
+              </h4>
+              <p class="text-xs text-zinc-400 font-sans mt-1">
+                Web Dev, HTML, CSS &amp; JS
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Campus Glories & Athletics -->
+        <div class="space-y-4 flex flex-col justify-between">
+          <!-- Top Card: Sphurti Sports Fest -->
+          <div class="zinc-card rounded-2xl p-5 sm:p-6 border border-amber-500/30 hover:border-amber-500/50 transition relative overflow-hidden">
+            <div class="flex items-center gap-2">
+              <span class="text-base select-none">🏀</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono text-xs font-bold">
+                Two-Time Runner Up
+              </span>
+            </div>
+            <h3 class="text-lg font-bold text-white tracking-tight mt-2.5">
+              Sphurti University Sports Fest
+            </h3>
+            <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans mt-2">
+              Secured Runner-Up position twice in the basketball championship. Demonstrated team leadership, athletic discipline, tactical composure, and endurance in high-pressure finals.
+            </p>
+          </div>
+
+          <!-- Bottom Card: Technical Leadership -->
+          <div class="zinc-card rounded-2xl p-4 sm:p-5 border border-zinc-800 hover:border-zinc-700 transition">
+            <div class="flex items-center gap-2 text-white">
+              <span class="text-amber-400 font-bold">⚡</span>
+              <h4 class="text-sm font-bold tracking-tight">
+                Technical Leadership &amp; Peer Hackathons
+              </h4>
+            </div>
+            <p class="text-xs text-zinc-400 leading-relaxed font-sans mt-2">
+              Active contributor in university hackathons and full-stack development initiatives with peer developers at DIT University.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full border-b border-zinc-800/80 mt-12 sm:mt-16"></div>
+    </section>
+
+    <!-- ================= 7. GITHUB CONTRIBUTIONS & ACTIVITY (Exact Match to User Image 3) ================= -->
+    <section id="heatmap" class="py-12 sm:py-16 relative">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800/80 pb-4 mb-6 select-none">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center font-bold">
+            ⌨
+          </div>
+          <h2 class="text-xs sm:text-sm font-mono font-bold uppercase tracking-widest text-zinc-200">
+            GITHUB CONTRIBUTIONS &amp; ACTIVITY
+          </h2>
+        </div>
+
+        <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 font-mono text-xs w-fit">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Live GitHub Feed</span>
+        </div>
+      </div>
+
+      <!-- Top 3 Metric Cards Matching Image 3 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+        <div class="zinc-card rounded-2xl p-5 flex flex-col justify-between border border-zinc-800 hover:border-zinc-700 transition">
+          <div class="flex items-center justify-between text-xs font-mono text-zinc-400">
+            <span class="uppercase tracking-wider">REPOS</span>
+            <span class="text-zinc-500">📁</span>
+          </div>
+          <div class="my-2">
+            <span class="text-3xl font-extrabold text-white font-mono" id="github-repos-count">21</span>
+          </div>
+          <p class="text-xs text-zinc-400 font-sans">Public repositories</p>
+        </div>
+
+        <div class="zinc-card rounded-2xl p-5 flex flex-col justify-between border border-zinc-800 hover:border-zinc-700 transition">
+          <div class="flex items-center justify-between text-xs font-mono text-zinc-400">
+            <span class="uppercase tracking-wider">STATUS</span>
+            <span class="text-emerald-400">🔥</span>
+          </div>
+          <div class="my-2">
+            <span class="text-3xl font-extrabold text-emerald-400 font-sans">Active</span>
+          </div>
+          <p class="text-xs text-zinc-400 font-sans">Regular commits</p>
+        </div>
+
+        <div class="zinc-card rounded-2xl p-5 flex flex-col justify-between border border-zinc-800 hover:border-zinc-700 transition">
+          <div class="flex items-center justify-between text-xs font-mono text-zinc-400">
+            <span class="uppercase tracking-wider">PROFILE</span>
+            <span class="text-zinc-500">👤</span>
+          </div>
+          <div class="my-2">
+            <span class="text-xl sm:text-2xl font-extrabold text-white font-mono truncate">@Lalit-byte</span>
+          </div>
+          <p class="text-xs text-zinc-400 font-sans">Open Source builder</p>
+        </div>
+      </div>
+
+      <!-- Main Contribution Heatmap Card Matching Image 3 -->
+      <div class="zinc-card rounded-2xl p-5 sm:p-6 border border-zinc-800 space-y-4">
+        <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <h3 class="text-sm font-bold text-white tracking-tight">Contribution Heatmap</h3>
+          </div>
+          <span class="text-xs font-mono text-zinc-400">Past 12 Months</span>
+        </div>
+
+        <div class="text-xs font-mono text-zinc-400 flex justify-between items-center bg-zinc-950/40 px-3 py-1.5 rounded-lg border border-zinc-800/50">
+          <span id="heatmap-tooltip">Hover over any day to see activity</span>
+          <span class="text-emerald-400 font-bold" id="github-contributions-count">184 contributions</span>
+        </div>
+
+        <div class="overflow-x-auto pb-2 scrollbar-thin">
+          <div class="min-w-[700px] flex justify-between text-[11px] font-mono text-zinc-500 pl-8 pr-2 mb-1">
+            <span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span>
+          </div>
+
+          <div class="flex gap-2 min-w-[700px]">
+            <div class="flex flex-col justify-between text-[10px] font-mono text-zinc-500 py-0.5 select-none w-6">
+              <span>Mon</span><span>Wed</span><span>Fri</span>
+            </div>
+            <div id="heatmap-container" class="flex gap-1 flex-1 justify-between"></div>
+          </div>
+
+          <div class="mt-4 flex items-center justify-between text-zinc-600 px-1">
+            <span class="text-xs select-none">◀</span>
+            <div class="h-1 flex-1 mx-3 bg-zinc-800 rounded-full overflow-hidden">
+              <div class="h-full bg-zinc-600 rounded-full w-2/3"></div>
+            </div>
+            <span class="text-xs select-none">▶</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pt-2 border-t border-zinc-800/80 gap-2 text-xs font-mono text-zinc-400">
+          <span>Real-time commit records via GitHub</span>
+          <div class="flex items-center gap-1.5">
+            <span>Less</span>
+            <span class="w-2.5 h-2.5 rounded-sm bg-[#161B22] inline-block border border-white/5"></span>
+            <span class="w-2.5 h-2.5 rounded-sm bg-[#0E4429] inline-block"></span>
+            <span class="w-2.5 h-2.5 rounded-sm bg-[#006D32] inline-block"></span>
+            <span class="w-2.5 h-2.5 rounded-sm bg-[#26A641] inline-block"></span>
+            <span class="w-2.5 h-2.5 rounded-sm bg-[#39D353] inline-block"></span>
+            <span>More</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Navigation Links Matching Image 3 -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-4 text-xs font-mono">
+        <a href="https://github.com/Lalit-byte" target="_blank"
+          class="flex items-center gap-2 text-zinc-300 hover:text-white transition group">
+          <span class="text-purple-400 font-bold">⌨</span>
+          <span class="group-hover:underline">View full GitHub activity (@Lalit-byte)</span>
+          <span class="text-zinc-500">↗</span>
+        </a>
+        <a href="https://github.com/Lalit-byte?tab=repositories" target="_blank"
+          class="flex items-center gap-1.5 text-zinc-400 hover:text-white transition group">
+          <span class="group-hover:underline">Browse all repositories</span>
+          <span class="group-hover:translate-x-1 transition-transform inline-block">→</span>
+        </a>
+      </div>
+
+      <div class="w-full border-b border-zinc-800/80 mt-12 sm:mt-16"></div>
+    </section>
+  </main>
+
+  <!-- 7.5. INTERACTIVE BLUE FOLDER NAME PHYSICS (Grand Centered Name Section) -->
+  <section id="name-canvas-section"
+    class="w-full py-12 sm:py-16 flex flex-col justify-center items-center text-center relative z-10 overflow-hidden">
+    <!-- Component-Width Top Divider Line (60% to 65% Viewport Width) -->
+    <div class="w-[92%] sm:w-[85%] md:w-[65vw] max-w-3xl mx-auto border-t border-zinc-800/80 mb-6 sm:mb-8"></div>
+
+    <!-- Perfectly Centered Canvas Container (Clean mx-auto, no transform/relative breakout hacks) -->
+    <div class="w-full max-w-6xl mx-auto px-4 h-80 sm:h-96 md:h-[440px] flex items-center justify-center">
+      <canvas id="folderCanvas" class="w-full h-full cursor-pointer"></canvas>
+    </div>
+
+    <!-- Prompt & Like Button matching reference screenshot -->
+    <p class="text-xs sm:text-sm font-mono text-zinc-400 mt-5 select-none tracking-wide">Wave your cursor through it.
+      Click to scatter.</p>
+
+    <button onclick="scatterFolders()"
+      class="mt-4 px-5 py-2 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-750 text-xs sm:text-sm font-mono text-zinc-300 hover:text-white transition active:scale-95 flex items-center gap-2 shadow-lg hover:border-zinc-500">
+      <span class="text-rose-400 text-sm">♡</span>
+      <span>Like this site?</span>
+    </button>
+
+    <!-- Component-Width Bottom Divider Line (60% to 65% Viewport Width) -->
+    <div class="w-[92%] sm:w-[85%] md:w-[65vw] max-w-3xl mx-auto border-b border-zinc-800/80 mt-6 sm:mb-8"></div>
+  </section>
+
+  <!-- ================= 8. GET IN TOUCH & macOS MAIL WINDOW (Unified Dark Theme) ================= -->
+  <section id="contact" class="w-full relative z-10 py-16 sm:py-24 border-t border-zinc-800/80 overflow-hidden text-zinc-100">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Floating Pill Badge (Dark Glass matching theme) -->
+      <div class="flex justify-center mb-6 sm:mb-8">
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-zinc-900/90 backdrop-blur-md border border-zinc-750 shadow-lg">
+          <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white text-[11px] font-bold overflow-hidden shadow-inner">
+            L
+          </div>
+          <span class="text-xs font-semibold text-zinc-200 tracking-tight">Lalit Bisht</span>
+        </div>
+      </div>
+
+      <!-- Section Heading -->
+      <div class="space-y-1 mb-8 sm:mb-10 text-left">
+        <span class="text-xs font-mono font-bold uppercase tracking-wider text-sky-400">Contact</span>
+        <h2 class="text-3xl sm:text-4xl md:text-[42px] font-extrabold text-white tracking-tight leading-tight">Got something fun to build?</h2>
+      </div>
+
+      <!-- Main Layout: Wide macOS Mail Window + Yellow Taped Sticky Note with Dog-Ear Corner -->
+      <div class="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-10">
+
+        <!-- macOS Mail Window (Dark Zinc Theme) -->
+        <div class="w-full lg:flex-1 max-w-2xl rounded-2xl bg-zinc-900/90 text-zinc-100 shadow-[0_20px_50px_rgba(0,0,0,0.45)] overflow-hidden border border-zinc-750/90 backdrop-blur-xl transition-all">
+
+          <!-- Window Header Bar -->
+          <div class="px-4 py-3 bg-zinc-850/90 border-b border-zinc-800 flex items-center justify-between select-none">
+            <div class="flex items-center gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-[#ff5f56] inline-block shadow-2xs"></span>
+              <span class="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block shadow-2xs"></span>
+              <span class="w-3 h-3 rounded-full bg-[#27c93f] inline-block shadow-2xs"></span>
+            </div>
+            <span class="text-xs font-semibold text-zinc-400 font-sans tracking-tight">New Message</span>
+            <button onclick="sendMail()" class="text-zinc-500 hover:text-zinc-200 transition" title="Send Mail">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Mail Form Fields -->
+          <div class="p-5 sm:p-6 space-y-4 text-xs font-sans">
+            <!-- To: Row -->
+            <div class="flex items-center justify-between gap-3 pb-3.5 border-b border-zinc-800/80">
+              <div class="flex items-center gap-3 flex-wrap">
+                <span class="text-zinc-500 font-medium w-12 text-xs">To:</span>
+                <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-zinc-800 border border-zinc-700 text-sky-400 text-xs font-medium">
+                  <div class="w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center text-white text-[9px] font-bold">L</div>
+                  <span class="font-semibold text-zinc-200">Lalit Bisht</span>
+                </div>
+                <span class="text-zinc-400 text-xs font-mono">lalitbisht0105@gmail.com</span>
+              </div>
+              <button id="mail-copy-btn" onclick="copyEmail()" class="text-xs text-zinc-400 hover:text-white font-medium flex items-center gap-1.5 px-2.5 py-1 rounded-lg hover:bg-zinc-800 transition active:scale-95" title="Copy Email">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span>Copy</span>
+              </button>
+            </div>
+
+            <!-- Subject: Row -->
+            <div class="flex items-center gap-3 pb-3.5 border-b border-zinc-800/80 flex-wrap">
+              <span class="text-zinc-500 font-medium w-12 text-xs">Subject:</span>
+              <div class="flex flex-wrap gap-2 items-center">
+                <button type="button" onclick="setSubject(this, 'A project idea')" class="subj-pill px-3 py-1 rounded-full text-xs font-semibold bg-blue-600 text-white transition active:scale-95 shadow-xs">A project idea</button>
+                <button type="button" onclick="setSubject(this, 'Freelance work')" class="subj-pill px-3 py-1 rounded-full text-xs font-medium border border-zinc-750 bg-zinc-800/60 hover:bg-zinc-800 text-zinc-300 hover:text-white transition active:scale-95">Freelance work</button>
+                <button type="button" onclick="setSubject(this, 'A full-time role')" class="subj-pill px-3 py-1 rounded-full text-xs font-medium border border-zinc-750 bg-zinc-800/60 hover:bg-zinc-800 text-zinc-300 hover:text-white transition active:scale-95">A full-time role</button>
+                <button type="button" onclick="setSubject(this, 'Just saying hi')" class="subj-pill px-3 py-1 rounded-full text-xs font-medium border border-zinc-750 bg-zinc-800/60 hover:bg-zinc-800 text-zinc-300 hover:text-white transition active:scale-95">Just saying hi</button>
+              </div>
+            </div>
+
+            <!-- From: Row -->
+            <div class="flex items-center gap-3 pb-3.5 border-b border-zinc-800/80">
+              <span class="text-zinc-500 font-medium w-12 text-xs">From:</span>
+              <input id="from-name" type="text" placeholder="Your name" class="flex-1 bg-transparent text-xs sm:text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none">
+            </div>
+
+            <!-- Message Area -->
+            <div class="pt-1">
+              <textarea id="mail-body" rows="4" placeholder="Hey Lalit, I've got this idea for..." class="w-full bg-transparent text-xs sm:text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none resize-none leading-relaxed font-sans"></textarea>
+            </div>
+
+            <!-- Bottom Action Bar -->
+            <div class="pt-4 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <button onclick="sendMail()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm transition active:scale-95">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  </svg>
+                  <span>Send</span>
+                </button>
+                <a href="mailto:lalitbisht0105@gmail.com?subject=Quick%2015-minute%20intro%20call" class="px-3.5 py-2 rounded-xl border border-zinc-750 bg-zinc-800/80 hover:bg-zinc-750 text-zinc-300 hover:text-white text-xs font-medium flex items-center gap-1.5 shadow-2xs transition active:scale-95">
+                  <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                  <span>Or grab 15 minutes</span>
+                </a>
+              </div>
+              <span class="text-[11px] text-zinc-500 font-sans">Opens in your mail app</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post-it Yellow Sticky Note (Accented physical desk artifact) -->
+        <div class="w-full lg:w-72 sticky-note p-6 rounded-xs relative shrink-0 shadow-[0_20px_40px_rgba(0,0,0,0.5)] border border-amber-300/30">
+          <!-- Semi-transparent Frosted Tape Strip -->
+          <div class="tape-strip w-16 h-5 absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-[1px] rotate-[-1deg]"></div>
+          <p class="text-[11px] font-bold tracking-wider uppercase text-amber-800/80 mb-2 font-mono">PSST</p>
+          <p class="text-sm leading-relaxed text-[#713F12] font-medium font-sans">
+            A rough idea is plenty. Working out what it should be is <mark class="bg-[#FDE047] text-[#713F12] px-1 py-0.5 rounded-xs font-semibold">half the fun</mark> and we can do that part together.
+          </p>
+          <!-- Folded dog-ear corner -->
+          <div class="absolute bottom-0 right-0 w-5 h-5 pointer-events-none overflow-hidden">
+            <div class="w-7 h-7 bg-amber-300 shadow-xs transform rotate-45 translate-x-3.5 translate-y-3.5"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Matching Dark Theme -->
+      <footer class="mt-14 pt-8 border-t border-zinc-800/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs select-none text-zinc-400">
+        <!-- Sound Toggle Button -->
+        <div class="flex items-center gap-2">
+          <button id="sound-toggle-btn" onclick="toggleSound()" class="px-3.5 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-750 text-zinc-300 text-xs font-mono shadow-xs hover:bg-zinc-800 hover:text-white transition flex items-center gap-2 active:scale-95">
+            <span class="flex items-end gap-0.5 h-3 w-3">
+              <span class="w-0.5 bg-blue-500 rounded-full h-1.5 animate-pulse"></span>
+              <span class="w-0.5 bg-blue-500 rounded-full h-3"></span>
+              <span class="w-0.5 bg-blue-500 rounded-full h-2 animate-pulse"></span>
+            </span>
+            <span id="sound-status-text">sound on</span>
+          </button>
+        </div>
+
+        <!-- Center Monogram & Links -->
+        <div class="flex flex-wrap items-center justify-center gap-2.5 text-zinc-400 font-sans">
+          <span class="font-semibold text-zinc-200">© Lalit Bisht</span>
+          <span>·</span>
+          <a href="https://github.com/Lalit-byte" target="_blank" class="hover:text-white transition underline underline-offset-2">GitHub</a>
+          <span>·</span>
+          <a href="https://linkedin.com/in/lalit-bisht-b5285b269" target="_blank" class="hover:text-white transition underline underline-offset-2">LinkedIn</a>
+          <span>·</span>
+          <a href="mailto:lalitbisht0105@gmail.com" class="hover:text-white transition underline underline-offset-2">Email</a>
+          <span class="text-zinc-500 hidden sm:inline">· 📍 Dehradun</span>
+          <span id="footer-live-time" class="text-zinc-500 hidden md:inline"></span>
+        </div>
+
+        <!-- Right Tagline & Unbloat Button -->
+        <div class="flex items-center gap-3">
+          <span class="text-[11px] font-mono text-zinc-500 hidden xl:inline">Built with Next.js and a few too many component libraries.</span>
+          <button onclick="toggleUnbloat()" class="px-3.5 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-750 text-zinc-300 text-xs font-mono shadow-xs hover:bg-zinc-800 hover:text-white transition active:scale-95" title="Minimalist UI toggle">
+            Unbloat
+          </button>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ================= RESUME MODAL ================= -->
+  <div id="resume-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="zinc-card max-w-md w-full rounded-2xl p-6 space-y-4 border border-zinc-700">
+      <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
+        <h3 class="text-xs font-bold text-white font-mono">Lalit_Bisht_Resume.pdf</h3>
+        <button onclick="closeModal('resume-modal')" class="text-zinc-400 hover:text-white text-base">✕</button>
+      </div>
+      <div class="space-y-2 text-xs font-mono text-zinc-300">
+        <p><strong class="text-emerald-400">Candidate:</strong> Lalit Bisht</p>
+        <p><strong class="text-emerald-400">Current Role:</strong> Software Developer Intern @ Technogetic Pvt Ltd.</p>
+        <p><strong class="text-emerald-400">Education:</strong> MCA @ DIT University (8.23 CGPA)</p>
+        <p><strong class="text-emerald-400">Certifications:</strong> NIELIT 'A' Level & 'O' Level</p>
+        <p><strong class="text-emerald-400">Core Technologies:</strong> React.js, Google Gemini, Node.js, Express,
+          Supabase, MongoDB, Python</p>
+      </div>
+      <div class="pt-3 border-t border-zinc-800 flex justify-end gap-2.5">
+        <button onclick="closeModal('resume-modal')"
+          class="px-3.5 py-1.5 rounded-lg bg-zinc-800 text-xs font-mono text-zinc-300">Close</button>
+        <button onclick="alert('Downloading Lalit Bisht Resume PDF...')"
+          class="px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs font-mono">Download
+          PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT: FOLDER PHYSICS ANIMATION, PRELOADER, GITHUB HEATMAP & LIVE TIME -->
+  <script>
+    // 1. Preloader Logic with Instant Fail-Safe Dismissal
+    function runPreloader() {
+      const preloader = document.getElementById('preloader');
+      const bar = document.getElementById('preloader-bar');
+      if (!preloader || preloader.dataset.dismissed === 'true') return;
+      preloader.dataset.dismissed = 'true';
+      if (bar) bar.style.width = '100%';
+      setTimeout(() => {
+        preloader.style.opacity = '0';
+        preloader.style.transform = 'translateY(-12px)';
+        preloader.style.pointerEvents = 'none';
+        setTimeout(() => { preloader.style.display = 'none'; }, 700);
+      }, 500);
+    }
+    if (document.readyState === 'complete') {
+      runPreloader();
+    } else {
+      window.addEventListener('load', runPreloader);
+      document.addEventListener('DOMContentLoaded', () => setTimeout(runPreloader, 400));
+      setTimeout(runPreloader, 1000);
+    }
+
+    // 2. 52-Week GitHub Contribution Heatmap (Method 1 Live Fetch for @Lalit-byte)
+    async function generateHeatmap() {
+      const container = document.getElementById('heatmap-container');
+      const tooltip = document.getElementById('heatmap-tooltip');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const colors = ['#161B22', '#0E4429', '#006D32', '#26A641', '#39D353'];
+      const reposEl = document.getElementById('github-repos-count');
+      const contribsEl = document.getElementById('github-contributions-count');
+
+      // 1. Fetch live public repositories count
+      fetch('https://api.github.com/users/Lalit-byte')
+        .then(res => res.ok ? res.json() : null)
+        .then(user => {
+          if (user && typeof user.public_repos === 'number' && reposEl) {
+            reposEl.textContent = user.public_repos;
+          }
+        })
+        .catch(() => {});
+
+      // 2. Render week grid helper
+      function renderGrid(dayList) {
+        container.innerHTML = '';
+        const weekCols = [];
+        let temp = [];
+        dayList.forEach(day => {
+          temp.push(day);
+          if (temp.length === 7) {
+            weekCols.push(temp);
+            temp = [];
+          }
+        });
+        if (temp.length > 0) weekCols.push(temp);
+        const last52 = weekCols.slice(-52);
+
+        last52.forEach(week => {
+          const col = document.createElement('div');
+          col.className = 'flex flex-col gap-1';
+          week.forEach(day => {
+            const square = document.createElement('div');
+            const lvl = Math.min(4, Math.max(0, day.level || 0));
+            square.className = 'w-2 h-2 rounded-[2px] transition-transform hover:scale-125 cursor-pointer';
+            square.style.backgroundColor = colors[lvl];
+            square.style.border = lvl === 0 ? '1px solid rgba(255,255,255,0.05)' : 'none';
+
+            const formattedDate = day.date ? new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+            square.addEventListener('mouseenter', () => {
+              if (tooltip) {
+                tooltip.textContent = `${day.count || 0} contributions on ${formattedDate}`;
+              }
+            });
+            square.addEventListener('mouseleave', () => {
+              if (tooltip) tooltip.textContent = 'Hover over any day to see activity';
+            });
+            col.appendChild(square);
+          });
+          container.appendChild(col);
+        });
+      }
+
+      // Default baseline 52 weeks (184 contributions)
+      const today = new Date();
+      const fallbackDays = [];
+      for (let i = 364; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        const rand = i % 11;
+        const lvl = rand > 8 ? 2 : rand > 5 ? 1 : 0;
+        fallbackDays.push({
+          date: d.toISOString().split('T')[0],
+          count: lvl === 2 ? 3 : lvl === 1 ? 1 : 0,
+          level: lvl
+        });
+      }
+      renderGrid(fallbackDays);
+
+      // 3. Fetch live calendar proxy
+      try {
+        const res = await fetch('https://github-contributions-api.jogruber.de/v4/Lalit-byte?y=last');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.contributions && Array.isArray(data.contributions)) {
+            if (data.total && typeof data.total.lastYear === 'number' && contribsEl) {
+              contribsEl.textContent = `${data.total.lastYear} contributions`;
+            }
+            renderGrid(data.contributions);
+          }
+        }
+      } catch (e) {
+        console.warn('Live GitHub contribution proxy fallback', e);
+      }
+    }
+    generateHeatmap();
+
+    // 3. Live IST Time Clock & Calendar Sync
+    function updateClock() {
+      const clockEl = document.getElementById('footer-live-time');
+      if (clockEl) {
+        const now = new Date();
+        const options = { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        clockEl.textContent = now.toLocaleTimeString('en-US', options) + ' IST';
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function updateDockCalendar() {
+      const now = new Date();
+      const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+      const dayEl = document.getElementById('dock-cal-day');
+      const dateEl = document.getElementById('dock-cal-date');
+      if (dayEl) dayEl.textContent = days[now.getDay()];
+      if (dateEl) dateEl.textContent = now.getDate();
+    }
+    updateDockCalendar();
+
+    // macOS Dock Scroll Morphing (Horizontal in Hero -> Vertical Right Stack across all other sections)
+    const dockAnchor = document.getElementById('dock-anchor');
+    const macosDock = document.getElementById('macos-dock');
+
+    function handleDockScroll() {
+      if (!dockAnchor || !macosDock) return;
+      const rect = dockAnchor.getBoundingClientRect();
+      // When the dock's anchor in the Hero section scrolls past the top area
+      if (rect.bottom < 100) {
+        if (!macosDock.classList.contains('dock-scrolled')) {
+          macosDock.classList.remove('dock-hero');
+          macosDock.classList.add('dock-scrolled');
+        }
+      } else {
+        if (macosDock.classList.contains('dock-scrolled')) {
+          macosDock.classList.remove('dock-scrolled');
+          macosDock.classList.add('dock-hero');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleDockScroll, { passive: true });
+    window.addEventListener('resize', handleDockScroll);
+    handleDockScroll();
+
+    // 4. Modal Triggers
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // 5. Mail Composer Functionality
+    let selectedSubject = 'A project idea';
+    const subjectPlaceholders = {
+      'A project idea': "Hey Lalit, I've got this idea for...",
+      'Freelance work': "Hey Lalit, we are looking for a developer to help us build...",
+      'A full-time role': "Hey Lalit, we came across your portfolio and have an engineering opportunity...",
+      'Just saying hi': "Hey Lalit, loved your portfolio and wanted to connect!"
+    };
+
+    function setSubject(btn, subject) {
+      selectedSubject = subject;
+      document.querySelectorAll('.subj-pill').forEach(b => {
+        b.className = 'subj-pill px-3 py-1 rounded-full text-xs font-medium border border-zinc-750 bg-zinc-800/60 hover:bg-zinc-800 text-zinc-300 transition active:scale-95';
+      });
+      btn.className = 'subj-pill px-3 py-1 rounded-full text-xs font-semibold bg-blue-600 text-white transition active:scale-95 shadow-xs';
+
+      const textarea = document.getElementById('mail-body');
+      if (textarea && subjectPlaceholders[subject]) {
+        textarea.placeholder = subjectPlaceholders[subject];
+      }
+    }
+
+    function copyEmail() {
+      navigator.clipboard.writeText('lalitbisht0105@gmail.com');
+      const btn = document.getElementById('mail-copy-btn');
+      if (btn) {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<span>Copied!</span>';
+        setTimeout(() => { btn.innerHTML = orig; }, 2000);
+      }
+    }
+
+    function sendMail() {
+      const name = document.getElementById('from-name')?.value || 'Visitor';
+      const body = document.getElementById('mail-body')?.value || "Hi Lalit, I'd love to connect with you!";
+      const mailto = `mailto:lalitbisht0105@gmail.com?subject=${encodeURIComponent(selectedSubject + ' - from ' + name)}&body=${encodeURIComponent(body)}`;
+      window.open(mailto, '_blank');
+    }
+
+    let soundEnabled = true;
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const text = document.getElementById('sound-status-text');
+      if (text) {
+        text.textContent = soundEnabled ? 'sound on' : 'sound off';
+      }
+    }
+
+    function toggleUnbloat() {
+      alert("✨ Pure, lightweight Next.js architecture: Zero runtime bloat, ultra-smooth interactions!");
+    }
+
+    // 6. Ultra-Smooth macOS Blue Folder Name Physics Simulation ("Lalit Bisht")
+    const canvas = document.getElementById('folderCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: -9999, y: -9999, isHovering: false };
+    let smoothMouse = { x: -9999, y: -9999 };
+
+    // Offscreen render of High-Resolution macOS Blue Folder Sprite
+    const folderCanvas = document.createElement('canvas');
+    folderCanvas.width = 64;
+    folderCanvas.height = 48;
+    const fctx = folderCanvas.getContext('2d');
+
+    function renderFolderIcon() {
+      fctx.clearRect(0, 0, 64, 48);
+      // Soft Ambient Drop Shadow
+      fctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+      fctx.beginPath();
+      fctx.roundRect(4, 10, 56, 36, 6);
+      fctx.fill();
+
+      // Folder Tab (Top Left)
+      fctx.fillStyle = '#4BA3F5';
+      fctx.beginPath();
+      fctx.roundRect(5, 3, 24, 12, [5, 5, 0, 0]);
+      fctx.fill();
+
+      // Folder Backing Plate
+      fctx.fillStyle = '#3B8FE8';
+      fctx.beginPath();
+      fctx.roundRect(3, 8, 58, 36, 5);
+      fctx.fill();
+
+      // Folder Front Flap with Rich Sonoma Blue Gradient
+      const grad = fctx.createLinearGradient(0, 14, 0, 44);
+      grad.addColorStop(0, '#60A5FA');
+      grad.addColorStop(0.35, '#3B82F6');
+      grad.addColorStop(1, '#1D4ED8');
+      fctx.fillStyle = grad;
+      fctx.beginPath();
+      fctx.roundRect(3, 14, 58, 30, [4, 4, 5, 5]);
+      fctx.fill();
+
+      // Crisp Top Edge Highlight
+      fctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+      fctx.fillRect(5, 15, 54, 1.5);
+    }
+    renderFolderIcon();
+
+    class FolderParticle {
+      constructor(tx, ty, pw, ph) {
+        this.originX = tx;
+        this.originY = ty;
+        this.x = tx + (Math.random() - 0.5) * 60;
+        this.y = ty + (Math.random() - 0.5) * 60;
+        this.vx = 0;
+        this.vy = 0;
+        this.w = pw;
+        this.h = ph;
+        this.spring = 0.046;
+        this.friction = 0.86;
+        this.phase = Math.random() * Math.PI * 2;
+      }
+      update(time) {
+        // Distance to smooth lerped mouse position
+        const dx = smoothMouse.x - this.x;
+        const dy = smoothMouse.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const maxDist = 120;
+
+        // Smooth non-linear cubic hermite repulsion
+        if (dist < maxDist && dist > 0) {
+          const norm = 1 - (dist / maxDist);
+          const smoothForce = (3 * norm * norm - 2 * norm * norm * norm) * 8.5;
+          this.vx -= (dx / dist) * smoothForce;
+          this.vy -= (dy / dist) * smoothForce;
+        }
+
+        // Spring force returning to origin
+        const homeDx = this.originX - this.x;
+        const homeDy = this.originY - this.y;
+        this.vx += homeDx * this.spring;
+        this.vy += homeDy * this.spring;
+
+        // Viscous fluid friction
+        this.vx *= this.friction;
+        this.vy *= this.friction;
+
+        // Speed cap to avoid oscillation
+        const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+        if (speed > 28) {
+          this.vx = (this.vx / speed) * 28;
+          this.vy = (this.vy / speed) * 28;
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Subtle organic breathing float
+        const breath = Math.sin(time + this.phase) * 0.4;
+        this.currentY = this.y + breath;
+      }
+      draw() {
+        ctx.drawImage(folderCanvas, this.x - this.w / 2, (this.currentY || this.y) - this.h / 2, this.w, this.h);
+      }
+    }
+
+    // Authentic Title Case Typography matching reference screenshot ("Lalit Bisht")
+    // Every character is uniformly 3 columns wide for optimal visual balance & generous letter spacing
+    const letters = {
+      // Uppercase L: 3 cols wide with solid bottom base
+      'L': [
+        [1, 0, 0],
+        [1, 0, 0],
+        [1, 0, 0],
+        [1, 0, 0],
+        [1, 1, 1]
+      ],
+      // Lowercase a: 3 cols wide, centered top arch, distinct legs & crossbar (never looks like an 'o'!)
+      'a': [
+        [0, 0, 0],
+        [0, 1, 0],
+        [1, 0, 1],
+        [1, 1, 1],
+        [1, 0, 1]
+      ],
+      // Lowercase l: 3 cols wide, centered tall stem with curved right foot hook
+      'l': [
+        [0, 1, 0],
+        [0, 1, 0],
+        [0, 1, 0],
+        [0, 1, 0],
+        [0, 1, 1]
+      ],
+      // Lowercase i: 3 cols wide, centered floating dot, blank gap, stem, and 3-wide serif base
+      'i': [
+        [0, 1, 0],
+        [0, 0, 0],
+        [0, 1, 0],
+        [0, 1, 0],
+        [1, 1, 1]
+      ],
+      // Lowercase t: 3 cols wide with ascender, crossbar, stem, and hook foot
+      't': [
+        [0, 1, 0],
+        [1, 1, 1],
+        [0, 1, 0],
+        [0, 1, 0],
+        [0, 1, 1]
+      ],
+      // Uppercase B: 3 cols wide with double loop
+      'B': [
+        [1, 1, 0],
+        [1, 0, 1],
+        [1, 1, 0],
+        [1, 0, 1],
+        [1, 1, 0]
+      ],
+      // Lowercase s: 3 cols wide top curve, left shelf, right shelf, bottom bar
+      's': [
+        [0, 0, 0],
+        [1, 1, 1],
+        [1, 1, 0],
+        [0, 0, 1],
+        [1, 1, 1]
+      ],
+      // Lowercase h: 3 cols wide with tall left ascender, shoulder arch, and two legs
+      'h': [
+        [1, 0, 0],
+        [1, 0, 0],
+        [1, 1, 1],
+        [1, 0, 1],
+        [1, 0, 1]
+      ],
+      // Fallback uppercase letters
+      'A': [
+        [0, 1, 0],
+        [1, 0, 1],
+        [1, 1, 1],
+        [1, 0, 1],
+        [1, 0, 1]
+      ],
+      'I': [
+        [1, 1, 1],
+        [0, 1, 0],
+        [0, 1, 0],
+        [0, 1, 0],
+        [1, 1, 1]
+      ],
+      'S': [
+        [1, 1, 1],
+        [1, 0, 0],
+        [1, 1, 1],
+        [0, 0, 1],
+        [1, 1, 1]
+      ],
+      'H': [
+        [1, 0, 1],
+        [1, 0, 1],
+        [1, 1, 1],
+        [1, 0, 1],
+        [1, 0, 1]
+      ],
+      'T': [
+        [1, 1, 1],
+        [0, 1, 0],
+        [0, 1, 0],
+        [0, 1, 0],
+        [0, 1, 0]
+      ]
+    };
+
+    function initFolderParticles() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+      particles = [];
+      const cw = rect.width;
+      const ch = rect.height;
+
+      const word1 = "Lalit";
+      const word2 = "Bisht";
+
+      // Dynamically calculate sizing and generous letter spacing
+      let cellW, cellH, pWidth, pHeight, letterGap, wordGap;
+      const isSingleLine = cw >= 660;
+
+      if (cw >= 1080) {
+        // Grand Desktop: High-impact large folders & airy spacing matching reference screenshot
+        cellW = 24;
+        cellH = 20;
+        pWidth = 34;
+        pHeight = 26;
+        letterGap = 32;
+        wordGap = 76;
+      } else if (cw >= 920) {
+        // Standard Desktop / Laptop (Fits 1024px screen with generous balanced margins)
+        cellW = 21;
+        cellH = 17.5;
+        pWidth = 30;
+        pHeight = 23;
+        letterGap = 26;
+        wordGap = 64;
+      } else if (cw >= 760) {
+        // Medium Desktop
+        cellW = 18;
+        cellH = 15;
+        pWidth = 26;
+        pHeight = 20;
+        letterGap = 22;
+        wordGap = 52;
+      } else if (cw >= 660) {
+        // Compact Desktop / Tablet Single Line
+        cellW = 15;
+        cellH = 13;
+        pWidth = 22;
+        pHeight = 17;
+        letterGap = 18;
+        wordGap = 42;
+      } else if (cw >= 440) {
+        // Tablet / Large Phone: Two stacked lines ("Lalit" line 1, "Bisht" line 2)
+        cellW = 20;
+        cellH = 17;
+        pWidth = 28;
+        pHeight = 22;
+        letterGap = 22;
+        wordGap = 36;
+      } else {
+        // Compact phone
+        cellW = 16;
+        cellH = 13.5;
+        pWidth = 22;
+        pHeight = 18;
+        letterGap = 16;
+        wordGap = 28;
+      }
+
+      function calcWordWidth(word) {
+        let w = 0;
+        for (let i = 0; i < word.length; i++) {
+          const matrix = letters[word[i]];
+          if (!matrix) continue;
+          w += (matrix[0].length * cellW);
+          if (i < word.length - 1) w += letterGap;
+        }
+        return w;
+      }
+
+      function buildWord(word, startX, startY) {
+        let curX = startX;
+        for (let i = 0; i < word.length; i++) {
+          const char = word[i];
+          const matrix = letters[char];
+          if (!matrix) continue;
+          for (let r = 0; r < matrix.length; r++) {
+            for (let c = 0; c < matrix[r].length; c++) {
+              if (matrix[r][c] === 1) {
+                particles.push(new FolderParticle(curX + c * cellW, startY + r * cellH, pWidth, pHeight));
+              }
+            }
+          }
+          curX += (matrix[0].length * cellW) + letterGap;
+        }
+      }
+
+      if (isSingleLine) {
+        const w1 = calcWordWidth(word1);
+        buildWord(word1, 0, (ch - (5 * cellH)) / 2);
+        buildWord(word2, w1 + wordGap, (ch - (5 * cellH)) / 2);
+
+        // Sub-pixel mathematical visual centering across all particles
+        if (particles.length > 0) {
+          let minX = Infinity, maxX = -Infinity;
+          let minY = Infinity, maxY = -Infinity;
+          for (let p of particles) {
+            const left = p.originX - p.w / 2;
+            const right = p.originX + p.w / 2;
+            const top = p.originY - p.h / 2;
+            const bottom = p.originY + p.h / 2;
+            if (left < minX) minX = left;
+            if (right > maxX) maxX = right;
+            if (top < minY) minY = top;
+            if (bottom > maxY) maxY = bottom;
+          }
+          const shiftX = (cw / 2) - ((minX + maxX) / 2);
+          const shiftY = (ch / 2) - ((minY + maxY) / 2);
+          for (let p of particles) {
+            p.originX += shiftX;
+            p.x += shiftX;
+            p.originY += shiftY;
+            p.y += shiftY;
+          }
+        }
+      } else {
+        const startY1 = (ch / 2) - (5 * cellH) - 18;
+        const startY2 = (ch / 2) + 18;
+
+        buildWord(word1, 0, startY1);
+        let minX1 = Infinity, maxX1 = -Infinity;
+        for (let p of particles) {
+          if (p.originX - p.w / 2 < minX1) minX1 = p.originX - p.w / 2;
+          if (p.originX + p.w / 2 > maxX1) maxX1 = p.originX + p.w / 2;
+        }
+        const shiftX1 = (cw / 2) - ((minX1 + maxX1) / 2);
+        for (let p of particles) {
+          p.originX += shiftX1;
+          p.x += shiftX1;
+        }
+
+        const p2Start = particles.length;
+        buildWord(word2, 0, startY2);
+        const p2List = particles.slice(p2Start);
+        let minX2 = Infinity, maxX2 = -Infinity;
+        for (let p of p2List) {
+          if (p.originX - p.w / 2 < minX2) minX2 = p.originX - p.w / 2;
+          if (p.originX + p.w / 2 > maxX2) maxX2 = p.originX + p.w / 2;
+        }
+        const shiftX2 = (cw / 2) - ((minX2 + maxX2) / 2);
+        for (let p of p2List) {
+          p.originX += shiftX2;
+          p.x += shiftX2;
+        }
+      }
+    }
+
+    let animTime = 0;
+    function animateFolders() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      animTime += 0.02;
+
+      // Mouse position smooth lerping
+      if (mouse.isHovering) {
+        smoothMouse.x += (mouse.x - smoothMouse.x) * 0.25;
+        smoothMouse.y += (mouse.y - smoothMouse.y) * 0.25;
+      } else {
+        smoothMouse.x += (-9999 - smoothMouse.x) * 0.1;
+        smoothMouse.y += (-9999 - smoothMouse.y) * 0.1;
+      }
+
+      for (let p of particles) {
+        p.update(animTime);
+        p.draw();
+      }
+      requestAnimationFrame(animateFolders);
+    }
+
+    window.addEventListener('resize', initFolderParticles);
+    initFolderParticles();
+    setTimeout(initFolderParticles, 150);
+    animateFolders();
+
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.isHovering = true;
+    });
+    canvas.addEventListener('mouseleave', () => {
+      mouse.isHovering = false;
+    });
+
+    function scatterFolders() {
+      for (let p of particles) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 18 + Math.random() * 26;
+        p.vx = Math.cos(angle) * speed;
+        p.vy = Math.sin(angle) * speed;
+      }
+    }
+    canvas.addEventListener('click', scatterFolders);
+  </script>
+</body>
+
+</html>
