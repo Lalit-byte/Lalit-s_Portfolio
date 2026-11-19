@@ -1116,12 +1116,18 @@
 
             <!-- Bottom Action Bar -->
             <div class="pt-4 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-3">
-              <div class="flex items-center gap-3">
+              <div class="flex items-center gap-2.5 flex-wrap">
                 <button onclick="sendMail()" id="mail-submit-btn" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm transition active:scale-95">
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>
                   <span>Send Message</span>
+                </button>
+                <button type="button" onclick="openGmail()" class="px-3.5 py-2 rounded-xl bg-zinc-800/80 hover:bg-zinc-750 text-zinc-300 hover:text-white border border-zinc-750 text-xs font-medium flex items-center gap-2 transition active:scale-95 group" title="Open directly in Gmail app / web">
+                  <svg class="w-3.5 h-3.5 text-[#EA4335] group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                  </svg>
+                  <span>Send via Gmail app</span>
                 </button>
               </div>
               <span id="mail-status-text" class="text-[11px] text-zinc-400 font-mono flex items-center gap-1">
@@ -1451,6 +1457,39 @@
       const body = document.getElementById('mail-body')?.value.trim();
       const statusSpan = document.getElementById('mail-status-text');
 
+      const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+      const BLOCKED_DOMAINS = ['mail.com', 'email.com', 'usa.com', 'tempmail.com', '10minutemail.com', 'guerrillamail.com', 'throwawaymail.com', 'trashmail.com', 'yopmail.com', 'mailinator.com', 'example.com', 'test.com', 'fake.com'];
+      const BLOCKED_USERNAMES = ['test', 'testing', 'fake', 'dummy', 'asdf', 'qwert', 'demo', 'sample', 'temp', 'trash', 'random'];
+
+      if (!email) {
+        alert('Please enter your email address so I can reply back.');
+        return;
+      }
+
+      if (!EMAIL_REGEX.test(email)) {
+        alert('Please enter a valid email address (e.g. name@domain.com).');
+        return;
+      }
+
+      const [username, domain] = email.split('@');
+      const cleanUser = (username || '').toLowerCase();
+      const cleanDomain = (domain || '').toLowerCase();
+
+      if (cleanUser.length < 3) {
+        alert('Email username is too short. Please provide a legitimate email address.');
+        return;
+      }
+
+      if (BLOCKED_USERNAMES.includes(cleanUser)) {
+        alert(`Placeholder username '${cleanUser}@' is not accepted. Please provide your real email.`);
+        return;
+      }
+
+      if (BLOCKED_DOMAINS.includes(cleanDomain)) {
+        alert(`Disposable email services (@${cleanDomain}) are not accepted. Please use Gmail, Outlook, or your work/school email.`);
+        return;
+      }
+
       if (!body) {
         alert('Please type a message before sending.');
         return;
@@ -1473,6 +1512,12 @@
           }
           document.getElementById('mail-body').value = '';
           return;
+        } else if (data.error) {
+          if (statusSpan) {
+            statusSpan.innerHTML = `<span class="text-rose-400 font-mono text-[11px]">${data.error}</span>`;
+          }
+          alert(data.error);
+          return;
         }
       } catch (err) {
         // Fallback for static browser preview without backend
@@ -1480,10 +1525,19 @@
 
       // Fallback
       if (statusSpan) {
-        statusSpan.innerHTML = '<span class="text-zinc-400">Opening in mail app...</span>';
+        statusSpan.innerHTML = '<span class="text-zinc-400">Opening in Gmail app...</span>';
       }
-      const mailto = `mailto:lalitbisht0105@gmail.com?subject=${encodeURIComponent(selectedSubject + ' - from ' + name + (email ? ' (' + email + ')' : ''))}&body=${encodeURIComponent(body)}`;
-      window.open(mailto, '_blank');
+      openGmail();
+    }
+
+    function openGmail() {
+      const name = document.getElementById('from-name')?.value.trim() || 'Visitor';
+      const email = document.getElementById('from-email')?.value.trim() || '';
+      const body = document.getElementById('mail-body')?.value.trim() || 'Hi Lalit, I would love to connect with you regarding an opportunity.';
+      const fullBody = email ? `${body}\n\n—\nSender: ${name}\nEmail: ${email}` : `${body}\n\n—\nSender: ${name}`;
+      const subject = `[Portfolio Inquiry] ${selectedSubject} — ${name}`;
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=lalitbisht0105@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(fullBody)}`;
+      window.open(gmailUrl, '_blank', 'noopener,noreferrer');
     }
 
     let soundEnabled = true;

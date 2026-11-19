@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Send, Copy, Check, Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
+import { SiGmail } from "react-icons/si";
 import { personalInfo } from "@/data/portfolioData";
 
 const subjectOptions = [
@@ -11,10 +12,45 @@ const subjectOptions = [
   { label: "Just saying hi", placeholder: "Hey Lalit, loved your portfolio and wanted to connect!" },
 ];
 
+const EMAIL_REGEX =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+const BLOCKED_DOMAINS = new Set([
+  "mail.com",
+  "email.com",
+  "usa.com",
+  "tempmail.com",
+  "temp-mail.org",
+  "10minutemail.com",
+  "guerrillamail.com",
+  "throwawaymail.com",
+  "trashmail.com",
+  "yopmail.com",
+  "mailinator.com",
+  "example.com",
+  "test.com",
+  "fake.com",
+]);
+
+const BLOCKED_USERNAMES = new Set([
+  "test",
+  "testing",
+  "fake",
+  "dummy",
+  "asdf",
+  "qwert",
+  "demo",
+  "sample",
+  "temp",
+  "trash",
+  "random",
+]);
+
 export default function ContactSection() {
   const [selectedSubject, setSelectedSubject] = useState("A project idea");
   const [senderName, setSenderName] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [message, setMessage] = useState("");
   const [isCopied, setIsCopied] = useState(false);
   const [isSending, setIsSending] = useState(false);
@@ -36,7 +72,53 @@ export default function ContactSection() {
   const handleSendMail = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
 
+    const cleanEmail = senderEmail.trim();
     const bodyText = message.trim();
+
+    if (!cleanEmail) {
+      setFeedback({
+        type: "error",
+        message: "Please enter your email so I can reply back to you.",
+      });
+      return;
+    }
+
+    if (!EMAIL_REGEX.test(cleanEmail)) {
+      setFeedback({
+        type: "error",
+        message: "Please enter a valid email address (e.g. name@domain.com).",
+      });
+      return;
+    }
+
+    const [username, domain] = cleanEmail.split("@");
+    const cleanUsername = username?.toLowerCase() || "";
+    const cleanDomain = domain?.toLowerCase() || "";
+
+    if (cleanUsername.length < 3) {
+      setFeedback({
+        type: "error",
+        message: "Email username is too short. Please provide a legitimate email address.",
+      });
+      return;
+    }
+
+    if (BLOCKED_USERNAMES.has(cleanUsername)) {
+      setFeedback({
+        type: "error",
+        message: `Placeholder username '${cleanUsername}@' is not accepted. Please use your real email.`,
+      });
+      return;
+    }
+
+    if (BLOCKED_DOMAINS.has(cleanDomain)) {
+      setFeedback({
+        type: "error",
+        message: `Disposable email services (@${cleanDomain}) are not accepted. Please use your standard personal or work email.`,
+      });
+      return;
+    }
+
     if (!bodyText) {
       setFeedback({ type: "error", message: "Please type a message before sending." });
       return;
@@ -51,9 +133,10 @@ export default function ContactSection() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: senderName.trim(),
-          email: senderEmail.trim(),
+          email: cleanEmail,
           subject: selectedSubject,
           message: bodyText,
+          _gotcha: honeypot,
         }),
       });
 
@@ -68,7 +151,7 @@ export default function ContactSection() {
         setSenderName("");
         setSenderEmail("");
       } else {
-        // Fallback or API key missing error
+        // Validation or delivery error from server
         setFeedback({
           type: "error",
           message: data.error || "Failed to deliver email. Please check your Resend API key.",
@@ -85,13 +168,26 @@ export default function ContactSection() {
     }
   };
 
-  const handleFallbackMailto = () => {
+  const handleOpenGmail = () => {
     const name = senderName.trim() || "Visitor";
-    const body = message.trim() || "Hi Lalit, I would love to connect with you regarding an opportunity.";
-    const mailto = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-      `${selectedSubject} - from ${name}`
-    )}&body=${encodeURIComponent(body)}`;
-    window.open(mailto, "_blank");
+    const userEmail = senderEmail.trim();
+    const bodyText =
+      message.trim() ||
+      "Hi Lalit, I would love to connect with you regarding an opportunity.";
+    const fullBody = userEmail
+      ? `${bodyText}\n\n—\nSender: ${name}\nEmail: ${userEmail}`
+      : `${bodyText}\n\n—\nSender: ${name}`;
+
+    const subject = `[Portfolio Inquiry] ${selectedSubject} — ${name}`;
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+      personalInfo.email
+    )}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(fullBody)}`;
+
+    window.open(gmailUrl, "_blank", "noopener,noreferrer");
+  };
+
+  const handleFallbackMailto = () => {
+    handleOpenGmail();
   };
 
   return (
@@ -137,6 +233,18 @@ export default function ContactSection() {
 
             {/* Form Fields */}
             <form onSubmit={handleSendMail} className="p-5 sm:p-6 space-y-4 text-xs font-sans">
+              {/* Anti-bot Honeypot field (hidden from humans) */}
+              <input
+                type="text"
+                name="_gotcha"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+                aria-hidden="true"
+              />
+
               {/* Feedback Alert if present */}
               {feedback.type === "success" && (
                 <div className="p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 flex items-center gap-2.5 text-xs font-mono">
@@ -153,10 +261,10 @@ export default function ContactSection() {
                   </div>
                   <button
                     type="button"
-                    onClick={handleFallbackMailto}
-                    className="underline text-sky-400 hover:text-white shrink-0"
+                    onClick={handleOpenGmail}
+                    className="underline text-sky-400 hover:text-white shrink-0 flex items-center gap-1"
                   >
-                    Send via Mail app
+                    <span>Send via Gmail app</span>
                   </button>
                 </div>
               )}
@@ -254,7 +362,7 @@ export default function ContactSection() {
 
               {/* Bottom Action Bar */}
               <div className="pt-4 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2.5 flex-wrap">
                   <button
                     type="submit"
                     disabled={isSending}
@@ -271,6 +379,16 @@ export default function ContactSection() {
                         <span>Send Message</span>
                       </>
                     )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleOpenGmail}
+                    className="px-3.5 py-2 rounded-xl bg-zinc-800/80 hover:bg-zinc-750 text-zinc-300 hover:text-white border border-zinc-750 text-xs font-medium flex items-center gap-2 transition active:scale-95 group"
+                    title="Open compose window directly in Gmail app / web"
+                  >
+                    <SiGmail className="w-3.5 h-3.5 text-[#EA4335] group-hover:scale-110 transition-transform" />
+                    <span>Send via Gmail app</span>
                   </button>
                 </div>
                 <span className="text-[11px] text-zinc-400 font-mono flex items-center gap-1">
