@@ -173,7 +173,7 @@ const techItems: TechItem[] = [
 
 export default function TechStack() {
   return (
-    <section id="tech-stack" className="py-10 sm:py-14 relative">
+    <section id="tech-stack" className="p-0 py-0 relative">
       {/* Subtle chrome stars at the bottom right matching image reference */}
       <div className="absolute right-[-24px] bottom-14 hidden lg:flex flex-col items-center gap-1 opacity-60 pointer-events-none select-none">
         <svg className="w-5 h-5 text-zinc-400" viewBox="0 0 24 24" fill="currentColor">

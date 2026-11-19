@@ -9,8 +9,9 @@ import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
 import EducationAndCampusGlories from "@/components/sections/EducationAndCampusGlories";
 import GitHubHeatmap from "@/components/sections/GitHubHeatmap";
-import FolderPhysicsCanvas from "@/components/canvas/FolderPhysicsCanvas";
 import ContactSection from "@/components/sections/ContactSection";
+import FolderPhysicsCanvas from "@/components/canvas/FolderPhysicsCanvas";
+import Footer from "@/components/layout/Footer";
 import ResumeModal from "@/components/ui/ResumeModal";
 
 export default function Home() {
@@ -45,11 +46,14 @@ export default function Home() {
         <GitHubHeatmap />
       </main>
 
-      {/* 8. Grand Centered macOS Blue Folder Name Canvas ("Lalit Bisht") */}
+      {/* 8. macOS Mail Window & Get in Touch Contact Section (Swapped to second-last position) */}
+      <ContactSection />
+
+      {/* 9. Grand Centered macOS Blue Folder Name Canvas ("Lalit Bisht") (Swapped to last section) */}
       <FolderPhysicsCanvas />
 
-      {/* 9. macOS Mail Window & Get in Touch Contact Section (Unified Dark Theme) */}
-      <ContactSection />
+      {/* 10. Global Bottom Footer */}
+      <Footer />
 
       {/* Interactive Resume Modal */}
       <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Send, Calendar, Copy, Check, VolumeX } from "lucide-react";
+import React, { useState } from "react";
+import { Send, Copy, Check, Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
 import { personalInfo } from "@/data/portfolioData";
 
 const subjectOptions = [
@@ -14,27 +14,14 @@ const subjectOptions = [
 export default function ContactSection() {
   const [selectedSubject, setSelectedSubject] = useState("A project idea");
   const [senderName, setSenderName] = useState("");
+  const [senderEmail, setSenderEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isCopied, setIsCopied] = useState(false);
-  const [soundEnabled, setSoundEnabled] = useState(true);
-  const [liveTime, setLiveTime] = useState("");
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const options: Intl.DateTimeFormatOptions = {
-        timeZone: "Asia/Kolkata",
-        hour12: true,
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-      };
-      setLiveTime(now.toLocaleTimeString("en-US", options) + " IST");
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  const [isSending, setIsSending] = useState(false);
+  const [feedback, setFeedback] = useState<{ type: "success" | "error" | null; message: string }>({
+    type: null,
+    message: "",
+  });
 
   const currentPlaceholder =
     subjectOptions.find((s) => s.label === selectedSubject)?.placeholder ||
@@ -46,7 +33,59 @@ export default function ContactSection() {
     setTimeout(() => setIsCopied(false), 2000);
   };
 
-  const handleSendMail = () => {
+  const handleSendMail = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+
+    const bodyText = message.trim();
+    if (!bodyText) {
+      setFeedback({ type: "error", message: "Please type a message before sending." });
+      return;
+    }
+
+    setIsSending(true);
+    setFeedback({ type: null, message: "" });
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: senderName.trim(),
+          email: senderEmail.trim(),
+          subject: selectedSubject,
+          message: bodyText,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setFeedback({
+          type: "success",
+          message: "Message sent directly to Lalit's inbox! Thank you for reaching out.",
+        });
+        setMessage("");
+        setSenderName("");
+        setSenderEmail("");
+      } else {
+        // Fallback or API key missing error
+        setFeedback({
+          type: "error",
+          message: data.error || "Failed to deliver email. Please check your Resend API key.",
+        });
+      }
+    } catch {
+      // Network error fallback
+      setFeedback({
+        type: "error",
+        message: "Network error occurred while contacting the server.",
+      });
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  const handleFallbackMailto = () => {
     const name = senderName.trim() || "Visitor";
     const body = message.trim() || "Hi Lalit, I would love to connect with you regarding an opportunity.";
     const mailto = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
@@ -55,28 +94,12 @@ export default function ContactSection() {
     window.open(mailto, "_blank");
   };
 
-  const handleUnbloat = () => {
-    alert("✨ Pure, lightweight Next.js architecture: Zero runtime bloat, ultra-smooth interactions!");
-  };
-
   return (
     <section
       id="contact"
-      className="w-full relative z-10 py-16 sm:py-24 border-t border-zinc-800/80 overflow-hidden text-zinc-100"
+      className="w-full relative z-10 pt-6 pb-10 sm:pt-8 sm:pb-12 overflow-hidden text-zinc-100"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Floating Pill Badge (Dark Glass matching theme) */}
-        <div className="flex justify-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-zinc-900/90 backdrop-blur-md border border-zinc-750 shadow-lg">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white text-[11px] font-bold overflow-hidden shadow-inner">
-              L
-            </div>
-            <span className="text-xs font-semibold text-zinc-200 tracking-tight">
-              {personalInfo.name}
-            </span>
-          </div>
-        </div>
-
         {/* Section Heading */}
         <div className="space-y-1 mb-8 sm:mb-10 text-left">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-sky-400">
@@ -102,8 +125,10 @@ export default function ContactSection() {
                 New Message
               </span>
               <button
-                onClick={handleSendMail}
-                className="text-zinc-500 hover:text-zinc-200 transition"
+                type="button"
+                onClick={() => handleSendMail()}
+                disabled={isSending}
+                className="text-zinc-500 hover:text-zinc-200 transition disabled:opacity-40"
                 title="Send Mail"
               >
                 <Send className="w-3.5 h-3.5" />
@@ -111,7 +136,31 @@ export default function ContactSection() {
             </div>
 
             {/* Form Fields */}
-            <div className="p-5 sm:p-6 space-y-4 text-xs font-sans">
+            <form onSubmit={handleSendMail} className="p-5 sm:p-6 space-y-4 text-xs font-sans">
+              {/* Feedback Alert if present */}
+              {feedback.type === "success" && (
+                <div className="p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 flex items-center gap-2.5 text-xs font-mono">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>{feedback.message}</span>
+                </div>
+              )}
+
+              {feedback.type === "error" && (
+                <div className="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 flex items-start justify-between gap-2 text-xs font-mono">
+                  <div className="flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                    <span>{feedback.message}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleFallbackMailto}
+                    className="underline text-sky-400 hover:text-white shrink-0"
+                  >
+                    Send via Mail app
+                  </button>
+                </div>
+              )}
+
               {/* To: Row */}
               <div className="flex items-center justify-between gap-3 pb-3.5 border-b border-zinc-800/80">
                 <div className="flex items-center gap-3 flex-wrap">
@@ -125,6 +174,7 @@ export default function ContactSection() {
                   <span className="text-zinc-400 text-xs font-mono">{personalInfo.email}</span>
                 </div>
                 <button
+                  type="button"
                   onClick={handleCopyEmail}
                   className="text-xs text-zinc-400 hover:text-white font-medium flex items-center gap-1.5 px-2.5 py-1 rounded-lg hover:bg-zinc-800 transition active:scale-95"
                   title="Copy Email"
@@ -167,15 +217,27 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              {/* From: Row */}
+              {/* From: Row (Name) */}
               <div className="flex items-center gap-3 pb-3.5 border-b border-zinc-800/80">
                 <span className="text-zinc-500 font-medium w-12 text-xs">From:</span>
                 <input
                   type="text"
                   value={senderName}
                   onChange={(e) => setSenderName(e.target.value)}
-                  placeholder="Your name"
+                  placeholder="Your name or company"
                   className="flex-1 bg-transparent text-xs sm:text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none"
+                />
+              </div>
+
+              {/* Email: Row (Reply-To) */}
+              <div className="flex items-center gap-3 pb-3.5 border-b border-zinc-800/80">
+                <span className="text-zinc-500 font-medium w-12 text-xs">Email:</span>
+                <input
+                  type="email"
+                  value={senderEmail}
+                  onChange={(e) => setSenderEmail(e.target.value)}
+                  placeholder="your.email@example.com (so I can reply back)"
+                  className="flex-1 bg-transparent text-xs sm:text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none font-mono text-[11.5px]"
                 />
               </div>
 
@@ -194,25 +256,29 @@ export default function ContactSection() {
               <div className="pt-4 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <button
-                    onClick={handleSendMail}
-                    className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm transition active:scale-95"
+                    type="submit"
+                    disabled={isSending}
+                    className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm transition active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Send className="w-3.5 h-3.5" />
-                    <span>Send</span>
+                    {isSending ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-3.5 h-3.5" />
+                        <span>Send Message</span>
+                      </>
+                    )}
                   </button>
-                  <a
-                    href={`mailto:${personalInfo.email}?subject=Quick%2015-minute%20intro%20call`}
-                    className="px-3.5 py-2 rounded-xl border border-zinc-750 bg-zinc-800/80 hover:bg-zinc-750 text-zinc-300 hover:text-white text-xs font-medium flex items-center gap-1.5 shadow-2xs transition active:scale-95"
-                  >
-                    <Calendar className="w-3.5 h-3.5 text-zinc-400" />
-                    <span>Or grab 15 minutes</span>
-                  </a>
                 </div>
-                <span className="text-[11px] text-zinc-500 font-sans">
-                  Opens in your mail app
+                <span className="text-[11px] text-zinc-400 font-mono flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Direct inbox delivery</span>
                 </span>
               </div>
-            </div>
+            </form>
           </div>
 
           {/* Yellow Sticky Note (Accented physical desk artifact) */}
@@ -235,79 +301,6 @@ export default function ContactSection() {
             </div>
           </div>
         </div>
-
-        {/* Footer (Dark theme matching other sections) */}
-        <footer className="mt-14 pt-8 border-t border-zinc-800/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs select-none text-zinc-400">
-          {/* Sound Toggle Button */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setSoundEnabled(!soundEnabled)}
-              className="px-3.5 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-750 text-zinc-300 text-xs font-mono shadow-xs hover:bg-zinc-800 hover:text-white transition flex items-center gap-2 active:scale-95"
-            >
-              {soundEnabled ? (
-                <>
-                  <span className="flex items-end gap-0.5 h-3 w-3">
-                    <span className="w-0.5 bg-blue-500 rounded-full h-1.5 animate-pulse" />
-                    <span className="w-0.5 bg-blue-500 rounded-full h-3" />
-                    <span className="w-0.5 bg-blue-500 rounded-full h-2 animate-pulse" />
-                  </span>
-                  <span>sound on</span>
-                </>
-              ) : (
-                <>
-                  <VolumeX className="w-3.5 h-3.5 text-zinc-500" />
-                  <span>sound off</span>
-                </>
-              )}
-            </button>
-          </div>
-
-          {/* Center Monogram & Links */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 text-zinc-400 font-sans">
-            <span className="font-semibold text-zinc-200">© {personalInfo.name}</span>
-            <span>·</span>
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition underline underline-offset-2"
-            >
-              GitHub
-            </a>
-            <span>·</span>
-            <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition underline underline-offset-2"
-            >
-              LinkedIn
-            </a>
-            <span>·</span>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="hover:text-white transition underline underline-offset-2"
-            >
-              Email
-            </a>
-            <span className="text-zinc-500 hidden sm:inline">· 📍 Dehradun</span>
-            {liveTime && <span className="text-zinc-500 hidden md:inline">{liveTime}</span>}
-          </div>
-
-          {/* Right Tagline & Unbloat */}
-          <div className="flex items-center gap-3">
-            <span className="text-[11px] font-mono text-zinc-500 hidden xl:inline">
-              Built with Next.js and a few too many component libraries.
-            </span>
-            <button
-              onClick={handleUnbloat}
-              className="px-3.5 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-750 text-zinc-300 text-xs font-mono shadow-xs hover:bg-zinc-800 hover:text-white transition active:scale-95"
-              title="Minimalist UI toggle"
-            >
-              Unbloat
-            </button>
-          </div>
-        </footer>
       </div>
     </section>
   );

@@ -439,7 +439,7 @@ export default function FolderPhysicsCanvas() {
   return (
     <section
       id="name-canvas-section"
-      className="w-full py-12 sm:py-16 flex flex-col justify-center items-center text-center relative z-10 overflow-hidden"
+      className="w-full pt-4 pb-12 sm:pt-6 sm:pb-16 flex flex-col justify-center items-center text-center relative z-10 overflow-hidden"
     >
       {/* Divider */}
       <div className="w-[92%] sm:w-[85%] md:w-[65vw] max-w-3xl mx-auto border-t border-zinc-800/80 mb-6 sm:mb-8" />
