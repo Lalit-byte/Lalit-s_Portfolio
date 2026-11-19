@@ -169,21 +169,7 @@ export default function ContactSection() {
   };
 
   const handleOpenGmail = () => {
-    const name = senderName.trim() || "Visitor";
-    const userEmail = senderEmail.trim();
-    const bodyText =
-      message.trim() ||
-      "Hi Lalit, I would love to connect with you regarding an opportunity.";
-    const fullBody = userEmail
-      ? `${bodyText}\n\n—\nSender: ${name}\nEmail: ${userEmail}`
-      : `${bodyText}\n\n—\nSender: ${name}`;
-
-    const subject = `[Portfolio Inquiry] ${selectedSubject} — ${name}`;
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
-      personalInfo.email
-    )}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(fullBody)}`;
-
-    window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    window.open("https://mail.google.com", "_blank", "noopener,noreferrer");
   };
 
   const handleFallbackMailto = () => {
@@ -264,7 +250,7 @@ export default function ContactSection() {
                     onClick={handleOpenGmail}
                     className="underline text-sky-400 hover:text-white shrink-0 flex items-center gap-1"
                   >
-                    <span>Send via Gmail app</span>
+                    <span>Send via Mail App</span>
                   </button>
                 </div>
               )}
@@ -388,7 +374,7 @@ export default function ContactSection() {
                     title="Open compose window directly in Gmail app / web"
                   >
                     <SiGmail className="w-3.5 h-3.5 text-[#EA4335] group-hover:scale-110 transition-transform" />
-                    <span>Send via Gmail app</span>
+                    <span>Send via Mail App</span>
                   </button>
                 </div>
                 <span className="text-[11px] text-zinc-400 font-mono flex items-center gap-1">
