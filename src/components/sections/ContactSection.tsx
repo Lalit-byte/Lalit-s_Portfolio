@@ -169,10 +169,7 @@ export default function ContactSection() {
   };
 
   const handleOpenGmail = () => {
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
-      personalInfo.email
-    )}`;
-    window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    window.open("https://mail.google.com", "_blank", "noopener,noreferrer");
   };
 
   const handleFallbackMailto = () => {
