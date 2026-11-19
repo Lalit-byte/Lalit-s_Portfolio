@@ -1127,7 +1127,7 @@
                   <svg class="w-3.5 h-3.5 text-[#EA4335] group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
                   </svg>
-                  <span>Send via Gmail app</span>
+                  <span>Send via Mail App</span>
                 </button>
               </div>
               <span id="mail-status-text" class="text-[11px] text-zinc-400 font-mono flex items-center gap-1">
@@ -1531,12 +1531,7 @@
     }
 
     function openGmail() {
-      const name = document.getElementById('from-name')?.value.trim() || 'Visitor';
-      const email = document.getElementById('from-email')?.value.trim() || '';
-      const body = document.getElementById('mail-body')?.value.trim() || 'Hi Lalit, I would love to connect with you regarding an opportunity.';
-      const fullBody = email ? `${body}\n\n—\nSender: ${name}\nEmail: ${email}` : `${body}\n\n—\nSender: ${name}`;
-      const subject = `[Portfolio Inquiry] ${selectedSubject} — ${name}`;
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=lalitbisht0105@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(fullBody)}`;
+      const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=lalitbisht0105@gmail.com';
       window.open(gmailUrl, '_blank', 'noopener,noreferrer');
     }
 
